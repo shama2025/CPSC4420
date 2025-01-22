@@ -23,9 +23,8 @@ void format_curly_brace(char buf[65535]){
     if(buf[ind] == '{'){
       // Swap the brace with the new line and then add it 
       temp = buf[ind]; // Putting the brace in the temp variable
-      buf[ind] = '\n'; // Replacing the newline where the old brace was
+      buf[ind] = ' '; // Replacing the newline where the old brace was
       buf[new_line_ind] = temp; // Put the curly brace where the new line used to be
-      buf[new_line_ind + 1] = '\n'; // Add a new line
     }
     ind++;
   }
@@ -46,7 +45,6 @@ int main(int argc, char **argv)
   int src, len, dst, i=0, j=0;
   char buf[65535];
   char newBuf[65535];
-
 
   /*
    * Load input file into buf. Note that file size is limited to 2^16 bytes/
@@ -89,25 +87,26 @@ int main(int argc, char **argv)
       newBuf[j++] = ' ';
     }
     else if(buf[i] == '\r') {// If there is a \r\n or \r then replace it with just \n
-        if(buf[i] == '\n'){// If there is already a new line then ignore the /r
+        if(buf[i+1] == '\n'){// If there is already a new line then ignore the /r
           i++;
-        }  
+        }  else{
           newBuf[j++] = '\n';
+        }
+          
     } 
     else if(buf[i] == ' ' && buf[i +1] == '\n') { // If there is a space next to a new line, then ignore that space character
       // Ignore the space
-      // printf("The character that was skipped: %x\n",buf[i]);
       len--;
     } else if(buf[i] == ')' && buf[i+1] == '{'){ // Checks if there is no space between a closing parenthesis and openeing curly brace
       newBuf[j++] = ')';
       newBuf[j++] = ' ';
+      len++;
     }
     else {
+      printf("Added character: %x\n", buf[i]);
       newBuf[j++] = buf[i];
-
     }
-      i++;
-      
+      i++; 
   }
   
 
