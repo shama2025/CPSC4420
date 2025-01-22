@@ -7,7 +7,7 @@
  * @details Function will loop through and search for single line open { and swap them with a space
  * @param buf Character array of file
  */
-char* format_curly_brace(char buf[65535]){
+void format_curly_brace(char buf[65535]){
   // Loop through each character 
   int ind = 0; // Index of array
   int new_line_ind = 0; // Index of newline character
@@ -29,7 +29,6 @@ char* format_curly_brace(char buf[65535]){
     }
     ind++;
   }
-  return buf;
 }
 
 
@@ -101,6 +100,7 @@ int main(int argc, char **argv)
       len--;
     } else if(buf[i] == ')' && buf[i+1] == '{'){ // Checks if there is no space between a closing parenthesis and openeing curly brace
       newBuf[j++] = ')';
+      newBuf[j++] = ' ';
     }
     else {
       newBuf[j++] = buf[i];
