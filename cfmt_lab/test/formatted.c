@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
-    
+
 int factorial(int n) {
     int product = 1;
 
