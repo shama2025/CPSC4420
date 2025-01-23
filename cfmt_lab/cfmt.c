@@ -30,7 +30,6 @@ void format_curly_brace(char buf[65535]){
   }
 }
 
-
 int main(int argc, char **argv)
 {
   if (argc != 2)
@@ -42,7 +41,7 @@ int main(int argc, char **argv)
   }
 
   // Declare variables
-  int src, len, dst, i=0, j=0;
+  int src, len, dst ,i=0, j=0;
   char buf[65535];
   char newBuf[65535];
 
@@ -60,59 +59,53 @@ int main(int argc, char **argv)
    */
   dst = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC);
 
-  /*
+/*
    * TODO: Write formatted file to output
    */
 
   /**
-   * The 4 cases
-   *  1.) If there is a \t or 9 in hex replace it with 4 spaces or 20 in hex (Done)
-   *  2.) If there is a \r\n (or da in hex)or just \r (or d in hex) replace it with \n or just a in hex
-   *  3.) If there is a space or 20 next to an \n or a, remove the space or 20
-   *  4.) If a curly bracket 7b comes after an \n or a, change it to one space or 20 (Done)
-   */
-
-  /**
    * Lines where there are errors
-   * Line 3 => in test.c it is two tabs so the code adjusts it for the 4 spaces, however in the expected.c there are no spaces
-   * Line 7 => in formatted.c there are 4 spaces after the curly brace (check logic in function or while loop)
-   * Line 15 & 16 & 19 => four spaces after the colon
+   * Line 3, 7, & 16 => 4 spaces and then newline
    */
 
-  format_curly_brace(buf);
+  
+format_curly_brace(buf);
 
   // Reads the buf until it is null
   while (buf[i] != '\0')
 {
-    if (buf[i] == '\t') { // If there is a /t replace with 4 spaces
-      len += 3;
-      newBuf[j++] = ' ';
-      newBuf[j++] = ' ';
-      newBuf[j++] = ' ';
-      newBuf[j++] = ' ';
-    }
+  if((buf[i] == ' ' && buf[i +1] == '\n') || (buf[i] == '\t' && buf[i+1] == '\n') || (buf[i] == '\t' && buf[i+1] == ' ')) { // Removes trailing whitespace
+      // Ignore the space
+      len--;
+
+   }
     else if(buf[i] == '\r') {// If there is a \r\n or \r then replace it with just \n
         if(buf[i+1] == '\n'){// If there is already a new line then ignore the /r
           len--;
         }  else{
           newBuf[j++] = '\n';
         }
-          
     } 
-    else if(buf[i] == ' ' && buf[i +1] == '\n') { // If there is a space next to a new line, then ignore that space character
-      // Ignore the space
-      len--;
-    } else if(buf[i] == ')' && buf[i+1] == '{'){ // Checks if there is no space between a closing parenthesis and openeing curly brace
+      else if(buf[i] == ')' && buf[i+1] == '{'){ // Checks if there is no space between a closing parenthesis and openeing curly brace
       newBuf[j++] = ')';
       newBuf[j++] = ' ';
       len++;
-    }
-    else {
-      printf("Added character: %x\n", buf[i]);
+    
+   }else if (buf[i] == '\t') { // Adds spaces in place of a tab
+      len += 3;
+      newBuf[j++] = ' ';
+      newBuf[j++] = ' ';
+      newBuf[j++] = ' ';
+      newBuf[j++] = ' ';
+    } else {
+      
       newBuf[j++] = buf[i];
+      
     }
       i++; 
   }
+
+
   
 
   write(dst, newBuf, len);
