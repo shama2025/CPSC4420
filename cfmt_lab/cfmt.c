@@ -72,7 +72,12 @@ int main(int argc, char **argv)
    *  4.) If a curly bracket 7b comes after an \n or a, change it to one space or 20 (Done)
    */
 
-  //
+  /**
+   * Lines where there are errors
+   * Line 3 => in test.c it is two tabs so the code adjusts it for the 4 spaces, however in the expected.c there are no spaces
+   * Line 7 => in formatted.c there are 4 spaces after the curly brace (check logic in function or while loop)
+   * Line 15 & 16 & 19 => four spaces after the colon
+   */
 
   format_curly_brace(buf);
 
@@ -88,7 +93,7 @@ int main(int argc, char **argv)
     }
     else if(buf[i] == '\r') {// If there is a \r\n or \r then replace it with just \n
         if(buf[i+1] == '\n'){// If there is already a new line then ignore the /r
-          i++;
+          len--;
         }  else{
           newBuf[j++] = '\n';
         }
