@@ -13,7 +13,7 @@ typedef struct
 } Cereal;
 
 /**
- * @brief Loads the cereals in the cereals.tsv into  the Cereals struct
+ * @brief Loads the cereals in the cereals.tsv into the Cereals struct
  * @param filename Name of file(cereals.tsv)
  * @param cereals Cereals struct
  * @param size Number of records in file
@@ -22,10 +22,8 @@ typedef struct
 int load_cereals(char *filename, Cereal *cereals, int size)
 {
 
-  FILE *fp;         // File pointer
-  char line[250];   // Line read (Maybe change to points)
-  char *token;      // String of split words
-  int tab_ct = 0;   // Used to count the number of tabs on a line
+  FILE *fp;                 // File pointer
+  char line[250];           // Line read (Maybe change to points)
   int num_cereals_read = 0; // Number of cereals read
 
   // Handle size edge case
@@ -41,42 +39,17 @@ int load_cereals(char *filename, Cereal *cereals, int size)
   fgets(line, sizeof(line), fp);
 
   // Read a line at a time by keeping track of counter and read function
-   while (fgets(line, sizeof(line), fp) && num_cereals_read < size)
+  while (fgets(line, sizeof(line), fp) && num_cereals_read < size)
+  {
+    if (sscanf(line, "%s\t%u\t%u\t%u",
+               cereals[num_cereals_read].name,
+               &cereals[num_cereals_read].calories,
+               &cereals[num_cereals_read].protein,
+               &cereals[num_cereals_read].fiber) == 4) // Checks if the number of fields in the line string is four
     {
-        tab_ct = 0;
-        token = strtok(line, "\t"); // Split line using tab as delimiter
-
-        while (token != NULL)
-        {
-            switch (tab_ct)
-            {
-            case 0: // Name
-                strcpy(cereals[num_cereals_read].name, token);
-                break;
-            case 1: // Calories
-                cereals[num_cereals_read].calories = atoi(token);
-                break;
-            case 2: // Protein
-                cereals[num_cereals_read].protein = atoi(token);
-                break;
-            case 3: // Fiber
-                cereals[num_cereals_read].fiber = atoi(token);
-                break;
-            default:
-                break;
-            }
-
-            tab_ct++;
-            token = strtok(NULL, "\t");
-        }
-
-        // Increment line count if all fields are parsed
-        if (tab_ct == 4)
-        {
-            num_cereals_read++;
-        }
-
-}
+      num_cereals_read++;
+    }
+  }
   fclose(fp);
   return num_cereals_read;
 }
@@ -89,10 +62,12 @@ int load_cereals(char *filename, Cereal *cereals, int size)
  */
 float get_calories_avg(Cereal *cereals, int num_cereals)
 {
+  printf("Name of first cereal: %s", cereals[0].name);
   float cal_sum = 0.0; // Running sum of calories
 
-  for(int i = 0; i< num_cereals; i++){ // Itereate over struct
-      cal_sum+=cereals[i].calories;
+  for (int i = 0; i < num_cereals; i++) // Itereate over struct
+  {
+    cal_sum += cereals[i].calories;
   }
 
   return cal_sum / num_cereals;
@@ -102,19 +77,20 @@ float get_calories_avg(Cereal *cereals, int num_cereals)
  * @brief Iterates through the struct to get the cereal wiht the highest protein
  * @param cereals Cereal struc
  * @param num_cereals Number of cereals
- * @return 
+ * @return
  */
 Cereal *get_protein_max(Cereal *cereals, int num_cereals)
 {
-  Cereal *cerealPtr; // Pointer for the cereal with max protein
+  Cereal *cerealPtr;   // Pointer for the cereal with max protein
   int max_protein = 0; // The current max protein of the cereal
 
-  for(int i = 0; i < num_cereals; i++){// Iterate over cereal struct
-    if(cereals[i].protein > max_protein){ // Check if the cereal protein is greater than the current max protein
-        cerealPtr = &cereals[i]; // Gets the address of the cereal with the highes protein
-        max_protein = cereals[i].protein;
+  for (int i = 0; i < num_cereals; i++)
+  { // Iterate over cereal struct
+    if (cereals[i].protein > max_protein)
+    {                          // Check if the cereal protein is greater than the current max protein
+      cerealPtr = &cereals[i]; // Gets the address of the cereal with the highes protein
+      max_protein = cereals[i].protein;
     }
-
   }
   return cerealPtr;
 }
@@ -125,12 +101,13 @@ Cereal *get_protein_per_calorie_max(Cereal *cereals, int num_cereals)
    * Returns the cereal with the most protein per calorie. In the case of a
    * tie, the cereal that appears first should be returned
    */
-  Cereal *cerealPtr; // Pointer for the cereal struct with highest protein/cal 
+  Cereal *cerealPtr;               // Pointer for the cereal struct with highest protein/cal
   float max_protein_per_cal = 0.0; // The current max proteing per cal of the cereal struct
-  // Perform a running protein / calorie equation to see what is the highest
-  // Update a cereal pointer 
-  for(int i = 0; i < num_cereals; i++){
-    if((cereals[i].protein / cereals[i].calories) > max_protein_per_cal){
+
+  for (int i = 0; i < num_cereals; i++) // Iterate through cereals
+  {
+    if ((cereals[i].protein / cereals[i].calories) > max_protein_per_cal) // Check protein per calorie against max
+    {
       cerealPtr = &cereals[i];
       max_protein_per_cal = cereals[i].protein / cereals[i].calories;
     }
@@ -206,4 +183,3 @@ int main()
     printf("Max protein per calorie: %s\n", get_protein_per_calorie_max(cereals, length)->name);
   }
 }
-
