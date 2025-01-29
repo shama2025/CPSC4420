@@ -2,7 +2,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 
 typedef struct
 {
@@ -23,7 +22,7 @@ int load_cereals(char *filename, Cereal *cereals, int size)
 {
 
   FILE *fp;                 // File pointer
-  char line[250];           // Line read (Maybe change to points)
+  char line[250];           // Line read
   int num_cereals_read = 0; // Number of cereals read
 
   // Handle size edge case
@@ -62,12 +61,11 @@ int load_cereals(char *filename, Cereal *cereals, int size)
  */
 float get_calories_avg(Cereal *cereals, int num_cereals)
 {
-  printf("Name of first cereal: %s", cereals[0].name);
   float cal_sum = 0.0; // Running sum of calories
 
   for (int i = 0; i < num_cereals; i++) // Itereate over struct
   {
-    cal_sum += cereals[i].calories;
+    cal_sum += cereals[i].calories; // Updat running sum
   }
 
   return cal_sum / num_cereals;
@@ -81,15 +79,13 @@ float get_calories_avg(Cereal *cereals, int num_cereals)
  */
 Cereal *get_protein_max(Cereal *cereals, int num_cereals)
 {
-  Cereal *cerealPtr;   // Pointer for the cereal with max protein
-  int max_protein = 0; // The current max protein of the cereal
+  Cereal *cerealPtr = &cereals[0];   // Pointer for the cereal with max protein that starts at the first cereal
 
-  for (int i = 0; i < num_cereals; i++)
+  for (int i = 1; i < num_cereals; i++)
   { // Iterate over cereal struct
-    if (cereals[i].protein > max_protein)
-    {                          // Check if the cereal protein is greater than the current max protein
-      cerealPtr = &cereals[i]; // Gets the address of the cereal with the highes protein
-      max_protein = cereals[i].protein;
+    if (cereals[i].protein > cerealPtr->protein)
+    {
+      cerealPtr = &cereals[i]; // Updates cereal pointer with current max protein
     }
   }
   return cerealPtr;
@@ -97,10 +93,6 @@ Cereal *get_protein_max(Cereal *cereals, int num_cereals)
 
 Cereal *get_protein_per_calorie_max(Cereal *cereals, int num_cereals)
 {
-  /*
-   * Returns the cereal with the most protein per calorie. In the case of a
-   * tie, the cereal that appears first should be returned
-   */
   Cereal *cerealPtr;               // Pointer for the cereal struct with highest protein/cal
   float max_protein_per_cal = 0.0; // The current max proteing per cal of the cereal struct
 
@@ -108,8 +100,8 @@ Cereal *get_protein_per_calorie_max(Cereal *cereals, int num_cereals)
   {
     if ((cereals[i].protein / cereals[i].calories) > max_protein_per_cal) // Check protein per calorie against max
     {
-      cerealPtr = &cereals[i];
-      max_protein_per_cal = cereals[i].protein / cereals[i].calories;
+      cerealPtr = &cereals[i]; // Update cereal pointer with current protein/calorie
+      max_protein_per_cal = cereals[i].protein / cereals[i].calories; // Updates running max protein/calorie
     }
   }
 
