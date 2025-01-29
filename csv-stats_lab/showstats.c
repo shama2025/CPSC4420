@@ -31,8 +31,12 @@ int load_cereals(char *filename, Cereal *cereals, int size)
     return 0;
   }
 
-  // Open the cereals.tsv file
-  fp = fopen(filename, "r");
+  // Apply error handling to opeing file
+  if ((fp = fopen(filename, "r")) == NULL)
+  {
+    printf("Error opening file!\n");
+    exit(1);
+  }
 
   // Skip header line
   fgets(line, sizeof(line), fp);
@@ -61,6 +65,12 @@ int load_cereals(char *filename, Cereal *cereals, int size)
  */
 float get_calories_avg(Cereal *cereals, int num_cereals)
 {
+
+  if (num_cereals == 0)
+  { // Add edge case handling
+    return 0;
+  }
+
   float cal_sum = 0.0; // Running sum of calories
 
   for (int i = 0; i < num_cereals; i++) // Itereate over struct
@@ -79,7 +89,13 @@ float get_calories_avg(Cereal *cereals, int num_cereals)
  */
 Cereal *get_protein_max(Cereal *cereals, int num_cereals)
 {
-  Cereal *cerealPtr = &cereals[0];   // Pointer for the cereal with max protein that starts at the first cereal
+
+  if (num_cereals == 0)
+  { // Add edge case handling
+    return NULL;
+  }
+
+  Cereal *cerealPtr = &cereals[0]; // Pointer for the cereal with max protein that starts at the first cereal
 
   for (int i = 1; i < num_cereals; i++)
   { // Iterate over cereal struct
@@ -93,6 +109,11 @@ Cereal *get_protein_max(Cereal *cereals, int num_cereals)
 
 Cereal *get_protein_per_calorie_max(Cereal *cereals, int num_cereals)
 {
+
+  if (num_cereals == 0)
+  { // Add edge case handling
+    return NULL;
+  }
   Cereal *cerealPtr;               // Pointer for the cereal struct with highest protein/cal
   float max_protein_per_cal = 0.0; // The current max proteing per cal of the cereal struct
 
@@ -100,7 +121,7 @@ Cereal *get_protein_per_calorie_max(Cereal *cereals, int num_cereals)
   {
     if ((cereals[i].protein / cereals[i].calories) > max_protein_per_cal) // Check protein per calorie against max
     {
-      cerealPtr = &cereals[i]; // Update cereal pointer with current protein/calorie
+      cerealPtr = &cereals[i];                                        // Update cereal pointer with current protein/calorie
       max_protein_per_cal = cereals[i].protein / cereals[i].calories; // Updates running max protein/calorie
     }
   }
