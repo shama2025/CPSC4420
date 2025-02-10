@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <math.h>
 
 #define SIZE 1600000000
-#define THREADS 4
+#define THREADS 3
+
+struct THREAD
 
 /**
  * @brief Using a range of values computes a running sum
@@ -12,17 +15,19 @@
  */
 static void *sum(void *num)
 {
-  long scalar = SIZE / THREADS;             // The amount of work this thread wil do
-  long start = (*(long *)num * scalar) + 1; // The starting point for the loop
-  long end = start + scalar;                // The ending point for the loop
-  long run_sum = 0;                         // Running sum
+  float scalar = SIZE / THREADS;             // The amount of work this thread wil do
+  float start = (*(long *)num * scalar) + 1; // The starting point for the loop
+  float end = start + scalar;                // The ending point for the loop
+  float run_sum = 0;                         // Running sum
 
-  for (int i = start; i < end; i++)
+  for (float i = start; i < end; i++)
   {
     run_sum += i;
   }
 
-  return (void *)run_sum;
+  printf("Child thread runnign sum: %f\n", run_sum);
+  //return (void *)run_sum;
+  return NULL;
 }
 
 int main()
