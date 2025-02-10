@@ -50,5 +50,8 @@ int main()
     pthread_join(child_thread[i], (void *)&col_sum[i]);
     total += col_sum[i];
   }
-  return total;
+
+  printf("%lld\n",total);
+
+  return 0;
 }
