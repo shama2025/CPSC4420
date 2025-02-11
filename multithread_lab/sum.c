@@ -1,45 +1,76 @@
 #include <stdio.h>
 #include <pthread.h>
-#include <unistd.h>
-#include <math.h>
 
 #define SIZE 1600000000
-#define THREADS 3
+#define THREADS 4
 
 /**
- * @brief Using a range of values computes a running sum
- * @param num The nth thread
- * @return The running sum
+ * @brief Struct to hold start and end for running sum
  */
-static void *sum(void *num)
+typedef struct
 {
-  long scalar = floor(SIZE / THREADS);             // The amount of work this thread wil do
-  long start = (*(long *)num * scalar) + 1; // The starting point for the loop
-  long end = start + scalar;                // The ending point for the loop
-  long run_sum = 0;                         // Running sum
+  unsigned long start;
+  unsigned long end;
+} Bucket;
 
-  for (int i = start; i < end; i++)
+/**
+ * @brief Initializes struct
+ * @param bkt Pointer to bucket struct
+ */
+void init_struct(Bucket *bkt)
+{
+  long partition = SIZE / THREADS; // This is the value that is subtracted by size
+  long range = 0;                  // Value used to indicate start and end for
+  int idx = THREADS - 1;           // Index for last elements in array
+
+  // Initializes the struct
+  for (int i = 0; i < THREADS - 1; i++)
+  {
+    bkt[i].start = range;
+    range += partition;
+    bkt[i].end = range;
+  }
+
+  // Handles the leftover ranges
+  bkt[idx].start = range;
+  bkt[idx].end = SIZE;
+}
+
+/**
+ * @brief Calculates a running sum between two ranges
+ * @param bkt A Bucket Struct used to hole info about ranges
+ * @return A void pointer that is the running sum for that range
+ */
+static void *sum(void *bkt)
+{
+  Bucket *t_bkt = (Bucket *)bkt; // Instance of bucket struct for thread
+  long run_sum = 0;              // Running sum for the given range
+
+  // Iterate over the range 
+  for (unsigned long i = t_bkt->start + 1; i <= t_bkt->end; i++)
   {
     run_sum += i;
-  } 
-  printf("Child thread has a scalr of: %ld\n",scalar);
-  printf("Child thread runnign sum: %ld\n", run_sum);
+  }
+
   return (void *)run_sum;
 }
 
 int main()
 {
-  pthread_t child_thread[THREADS]; // Threads
-  long inputs[THREADS];            // The inputs passed to the function
-  int error;                       // File descriptor upon thread creation
-  int count = 0;                   // Index tracker
-  long col_sum[THREADS];           // An array of values passed from thread
-  long long total = 0;             // Total sum
+  pthread_t threads[THREADS]; // Array of threads
+  Bucket bkt[THREADS];        // Bucket Struct with length THREADS
+  int error;                  // Return value for thread creation
+  int count = 0;              // Index of struct
+  long col_sum[THREADS];      // An array of values passed from thread
+  long long total = 0;        // Total sum
 
+  // Call initialize function
+  init_struct(bkt);
+
+  // Iteratively create the threads
   do
   {
-    inputs[count] = count;
-    error = pthread_create(&child_thread[count], NULL, sum, &inputs[count]);
+    error = pthread_create(&threads[count], NULL, sum, &bkt[count]);
     if (error)
     {
       fprintf(stderr, "pthread_creat failed with error: %d\n", error);
@@ -47,13 +78,15 @@ int main()
     count++;
   } while (count < THREADS);
 
+  // Iterates over number of threads to obtain running total
   for (int i = 0; i < THREADS; i++)
   {
-    pthread_join(child_thread[i], (void *)&col_sum[i]);
+    pthread_join(threads[i], (void *)&col_sum[i]);
     total += col_sum[i];
   }
 
-  printf("%lld\n",total);
+  // Display the total
+  printf("%lld\n", total);
 
   return 0;
 }
