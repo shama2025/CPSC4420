@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
-#include <math.h>
+#include <stdlib.h>
 
 #define SIZE 1600000000
 #define THREADS 3
 
 typedef struct{
-    long scalar;
+    unsigned long scalar;
 }Bucket;
 
 
 void init_struct(){
-    Bucket *bkt; // Instance of the struct
+    Bucket *bkt = NULL; // Instance of the struct
     long partition = SIZE/THREADS; // This is the value that is subtracted by size
     long run_sum = 0;
 
@@ -37,11 +37,12 @@ void init_struct(){
 static void *sum(void *num)
 {
     // Perform same function, but instead call the struct to get start and ending values
-    Bucket *bkt;
-    long start = (bkt[*(long *)num ].scalar * (*(long *)num)) + 1;
-    long end = bkt[*(long *)num ].scalar;
+    Bucket *t_bkt;
+    long start = (t_bkt[*(long *)num ].scalar * (*(long *)num)) + 1;
+    long end = t_bkt[*(long *)num ].scalar;
     long run_sum = 0;
-    for(long i =0; i< end; i++){
+
+    for(long i =start; i< end; i++){
         run_sum+=i;
     }
 

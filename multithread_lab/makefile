@@ -1,13 +1,13 @@
 all: sum
 
-sum: sum.c 
+sum: sum2.c 
 	gcc $< -Wall -Wextra -Werror -lpthread -o $@
 
-test: sum
-	./sum | cmp - expected
+test: sum2
+	./sum2 | cmp - expected
 
-bench: sum
-	time --portability ./sum
+bench: sum2
+	time --portability ./sum2
 
 clean:
 	rm -f sum
