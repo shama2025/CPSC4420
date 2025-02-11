@@ -6,8 +6,6 @@
 #define SIZE 1600000000
 #define THREADS 3
 
-struct THREAD
-
 /**
  * @brief Using a range of values computes a running sum
  * @param num The nth thread
@@ -15,19 +13,18 @@ struct THREAD
  */
 static void *sum(void *num)
 {
-  float scalar = SIZE / THREADS;             // The amount of work this thread wil do
-  float start = (*(long *)num * scalar) + 1; // The starting point for the loop
-  float end = start + scalar;                // The ending point for the loop
-  float run_sum = 0;                         // Running sum
+  long scalar = floor(SIZE / THREADS);             // The amount of work this thread wil do
+  long start = (*(long *)num * scalar) + 1; // The starting point for the loop
+  long end = start + scalar;                // The ending point for the loop
+  long run_sum = 0;                         // Running sum
 
-  for (float i = start; i < end; i++)
+  for (int i = start; i < end; i++)
   {
     run_sum += i;
-  }
-
-  printf("Child thread runnign sum: %f\n", run_sum);
-  //return (void *)run_sum;
-  return NULL;
+  } 
+  printf("Child thread has a scalr of: %ld\n",scalar);
+  printf("Child thread runnign sum: %ld\n", run_sum);
+  return (void *)run_sum;
 }
 
 int main()
