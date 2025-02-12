@@ -4,7 +4,7 @@ sum: sum.c
 	gcc $< -Wall -Wextra -Werror -lpthread -o $@
 
 test: sum
-	./sum2 | cmp - expected
+	./sum | cmp - expected
 
 bench: sum
 	time --portability ./sum
