@@ -53,3 +53,5 @@ dkms.conf
 
 # Vscode directory
 .vscode
+
+# Python files
