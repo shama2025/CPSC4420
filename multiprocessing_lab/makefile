@@ -1,13 +1,10 @@
-all: sum
+all:backend
 
-sum: sum.c 
+backend: backend.c 
 	gcc $< -Wall -Wextra -Werror -o $@
 
-test: sum
-	./sum | cmp - expected
-
-bench: sum
-	time --portability ./sum
+test: backend
+	./backend
 
 clean:
-	rm -f sum
+	rm -f backend

@@ -1,12 +1,20 @@
 # This file will simply create x amount of agents and send/return data from a backend
 
-import requests
+import socket
 import threading
 
 def comm_backend(thread_num):
     """
     This function will send requests to the backend
     """
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(('localhost', 8080))
+
+    sock.send(b"Hello from agent ", thread_num)
+
+    response = sock.recv(1024)
+    print(response.decode())
+    sock.close()
     
 
 def create_agents(agent_num):
