@@ -1,5 +1,3 @@
-# This file will simply create x amount of agents and send/return data from a backend
-
 import socket
 import threading
 
@@ -27,6 +25,5 @@ def create_agents(agent_num):
 
 
 if __name__ == "__main__":
-    print("Starting program")
     agent_num = int(input("How many agents would you like to create: "))
     create_agents(agent_num)
