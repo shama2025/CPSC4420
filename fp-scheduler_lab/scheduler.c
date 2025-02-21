@@ -27,35 +27,24 @@ Thread threads[NUM_THREADS] = {
 };
 
 Thread *schedule(Thread * threads) {
-  int index = 0; // Index of the threads
-  int high_priority = threads[0].priority; // Highest priority value which needs to be smallest
-  int state = 1;
+  int index = -1; // Index of the threads, start at -1 in case there are no runnable threads
+  int high_priority = __INT_MAX__; // Highest posible integer to focus on getting highest priority
 
-  // Will need to return null when there are no runnable threads
-
-  /*
-   * Implements a fixed-priority scheduler
-   * 
-   * Returns a pointer to the thread to run next
-   * 
-   * Should return `NULL` if there is no eligible thread to run
-   *
-   * Implementation note:
-   *
-   * A fixed-priority scheduler must only consider thread state and
-   * priority when making a scheduling decision
-   * 
-   * Don't change the state but can still handle it while in a priorit schedule
-   */
+  // Iterate over threads 
   for(int i = 0; i < NUM_THREADS; i++){
-   // printf("Content at thread %d: priority = %d, period = %d, work_required = %d, work_remainind =  %d, state= %d\n", i, threads[i].priority,threads[i].period, threads[i].work_required, threads[i].work_remaining, threads[i].state);
-    if(threads[i].state == state && threads[i].priority <= high_priority){
-      index = i;
-      break;
-    }else{
+    // Checks if the thread is of highest priority and runnable
+    if(threads[i].state == 1 && threads[i].priority < high_priority){
       high_priority = threads[i].priority;
+      index = i;
     }
   }
+
+  // Checks if the index wasn't updated 
+  // which helps check if there is or isn't a runnable thread
+  if(index == -1){
+    return NULL;
+  }
+
   return &threads[index];
 }
 
