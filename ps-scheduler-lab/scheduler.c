@@ -43,7 +43,7 @@ Thread *schedule_lottery(Thread * threads) {
   int non_run_ct = 0;
   int index = -1;
   int ran = rand() % 100;
-
+  int tickets_acum = 0;
 
   for (int i = 0; i < 6; i++){
     if(threads[i].state != 1){
@@ -52,32 +52,42 @@ Thread *schedule_lottery(Thread * threads) {
   }
 
   if(non_run_ct != 6){
+    // for(int i = 0; i< 6;i++){
+    //   if(threads[i].state == 1){
+    //       tickets_acum = threads[i].weight;
+    //       if(ran < tickets_acum){
+    //         index = i;
+    //         break;
+    //       }
+    //   }
+    // }
 
   while(index == -1){
 
    if ((ran >= 0 && ran <= 49) && threads[index + 1].state == 1){
       index+=1;
-      break;
+     // break;
     }
     else if ((ran >= 50 && ran <= 75 ) && threads[index + 2].state == 1) {
       index+=2;
-      break;
+    //  break;
     }
     else if ((ran >= 76 && ran <= 88 ) && threads[index + 3].state == 1) {
       index+=3;
-      break;
+     // break;
     }
     else if ((ran >= 89 && ran <= 97 ) && threads[index + 4].state == 1) {
       index+=4;
-      break;
+      tickets_acum+=threads[index].weight;
+     // break;
     }
     else if ((ran >= 98 && ran <= 99 ) && threads[index + 5].state == 1) {
       index+=5;
-      break;
+     // break;
     }
     else if((ran > 99 ) && threads[index + 6].state == 1){
       index+=6;
-      break;
+     // break;
     }
     else{
       // new random value
