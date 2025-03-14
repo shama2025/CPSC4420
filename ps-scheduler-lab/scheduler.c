@@ -37,7 +37,43 @@ Thread *schedule_lottery(Thread * threads) {
    * Should return `NULL` if there is no eligible thread to run
    */
 
- return &threads[0];
+  // Will need to iterate over threads and make sure each thread is runnable, 
+  //if all threads wait then return null
+  //else: Select random thread and check the weight to make sure it is largest runnable thread
+  int non_run_ct = 0;
+  int index = 0;
+  int ran = rand() % 100;
+
+
+  for (int i = 0; i < 6; i++){
+    if(threads[i].state != 1){
+      non_run_ct++;
+    }
+  }
+
+  if(non_run_ct != 6){
+    // index = rand() % 6;
+    // printf("This thread %d is running!\n", threads[index].weight);
+    // return &threads[index];
+
+    // Do a random number between 0 and 99, if the value is between 0 and 49 
+   switch(ran){
+    case 0 ... 49: // 50 
+      printf("Thread %d is running.\n", index);
+    case 50 ... 75: // 25
+      printf("Thread %d is running.\n", (index+1));
+    case 76 ... 88: // 12
+      print("Thread %d is running.\n",(index+2));
+    case 89 ... 97: // 8
+      printf("Thread %d is running.\n",(index+3));
+    case 97 ... 99: //
+      print("Thread %d is running.\n",(index+4));
+
+   }
+  }else{
+    return NULL;
+  }
+
 }
 
 Thread *schedule_wfq(Thread * threads) {
