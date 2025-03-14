@@ -41,7 +41,7 @@ Thread *schedule_lottery(Thread * threads) {
   //if all threads wait then return null
   //else: Select random thread and check the weight to make sure it is largest runnable thread
   int non_run_ct = 0;
-  int index = 0;
+  int index = -1;
   int ran = rand() % 100;
 
 
@@ -52,30 +52,43 @@ Thread *schedule_lottery(Thread * threads) {
   }
 
   if(non_run_ct != 6){
-    // index = rand() % 6;
-    // printf("This thread %d is running!\n", threads[index].weight);
-    // return &threads[index];
 
-    // Do a random number between 0 and 99, if the value is between 0 and 49 
-   if (ran >= 0 && ran <= 49) {
-        printf("Thread %d is running.\n", index);
+  while(index == -1){
+
+   if ((ran >= 0 && ran <= 49) && threads[index + 1].state == 1){
+      index+=1;
+      break;
     }
-    else if (ran >= 50 && ran <= 75) {
-        printf("Thread %d is running.\n", (index + 1));
+    else if ((ran >= 50 && ran <= 75 ) && threads[index + 2].state == 1) {
+      index+=2;
+      break;
     }
-    else if (ran >= 76 && ran <= 88) {
-        printf("Thread %d is running.\n", (index + 2));
+    else if ((ran >= 76 && ran <= 88 ) && threads[index + 3].state == 1) {
+      index+=3;
+      break;
     }
-    else if (ran >= 89 && ran <= 97) {
-        printf("Thread %d is running.\n", (index + 3));
+    else if ((ran >= 89 && ran <= 97 ) && threads[index + 4].state == 1) {
+      index+=4;
+      break;
     }
-    else if (ran >= 98 && ran <= 99) {
-        printf("Thread %d is running.\n", (index + 4));
+    else if ((ran >= 98 && ran <= 99 ) && threads[index + 5].state == 1) {
+      index+=5;
+      break;
+    }
+    else if((ran > 99 ) && threads[index + 6].state == 1){
+      index+=6;
+      break;
+    }
+    else{
+      // new random value
+      ran = rand() % 100;
+    }
     }
   }else{
+    printf("Threads are non-runnable!\n");
     return NULL;
   }
-
+  return &threads[index];
 }
 
 Thread *schedule_wfq(Thread * threads) {
