@@ -57,19 +57,21 @@ Thread *schedule_lottery(Thread * threads) {
     // return &threads[index];
 
     // Do a random number between 0 and 99, if the value is between 0 and 49 
-   switch(ran){
-    case 0 ... 49: // 50 
-      printf("Thread %d is running.\n", index);
-    case 50 ... 75: // 25
-      printf("Thread %d is running.\n", (index+1));
-    case 76 ... 88: // 12
-      print("Thread %d is running.\n",(index+2));
-    case 89 ... 97: // 8
-      printf("Thread %d is running.\n",(index+3));
-    case 97 ... 99: //
-      print("Thread %d is running.\n",(index+4));
-
-   }
+   if (ran >= 0 && ran <= 49) {
+        printf("Thread %d is running.\n", index);
+    }
+    else if (ran >= 50 && ran <= 75) {
+        printf("Thread %d is running.\n", (index + 1));
+    }
+    else if (ran >= 76 && ran <= 88) {
+        printf("Thread %d is running.\n", (index + 2));
+    }
+    else if (ran >= 89 && ran <= 97) {
+        printf("Thread %d is running.\n", (index + 3));
+    }
+    else if (ran >= 98 && ran <= 99) {
+        printf("Thread %d is running.\n", (index + 4));
+    }
   }else{
     return NULL;
   }
