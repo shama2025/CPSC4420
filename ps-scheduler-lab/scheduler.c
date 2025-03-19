@@ -43,38 +43,69 @@ Thread *schedule_lottery(Thread * threads) {
   int index = -1;
   int ran = rand() % 100;
 
-  for (int i = 0; i < 6; i++){
-     if ((ran >= 0 && ran <= 49) && threads[index + 1].state == 1){
-      index+=1;
-      break;
+  // for (int i = 0; i < 6; i++){
+  //    if ((ran >= 0 && ran <= 49) && threads[index + 1].state == 1){
+  //     index+=1;
+  //     break;
+  //   }
+  //   else if ((ran >= 50 && ran <= 75 ) && threads[index + 2].state == 1) {
+  //     index+=2;
+  //   break;
+  //   }
+  //   else if ((ran >= 76 && ran <= 88 ) && threads[index + 3].state == 1) {
+  //     index+=3;
+  //    break;
+  //   }
+  //   else if ((ran >= 89 && ran <= 97 ) && threads[index + 4].state == 1) {
+  //     index+=4;
+  //    break;
+  //   }
+  //   else if ((ran >= 98 && ran <= 99 ) && threads[index + 5].state == 1) {
+  //     index+=5;
+  //    break;
+  //   }
+  //   else if((ran > 99 ) && threads[index + 6].state == 1){
+  //     index+=6;
+  //    break;
+  //   }
+  // }
+   int total_tickets = 0;
+    int thread_count = 6;  // Assuming you know the count - ideally this would be passed as a parameter
+    
+    // Count total tickets from all runnable threads
+    for (int i = 0; i < thread_count; i++) {
+        if (threads[i].state == 1) {  // Assuming state 1 means runnable
+            total_tickets += threads[i].weight;  // Assuming there's a weight field
+        }
     }
-    else if ((ran >= 50 && ran <= 75 ) && threads[index + 2].state == 1) {
-      index+=2;
-    break;
+    
+    // If no tickets, no runnable threads
+    if (total_tickets == 0) {
+        return NULL;
     }
-    else if ((ran >= 76 && ran <= 88 ) && threads[index + 3].state == 1) {
-      index+=3;
-     break;
+    
+    // Select a random ticket
+    int winning_ticket = rand() % total_tickets;
+    
+    // Find the thread that holds the winning ticket
+    int ticket_count = 0;
+    for (int i = 0; i < thread_count; i++) {
+        if (threads[i].state == 1) {
+            ticket_count += threads[i].weight;
+            if (winning_ticket < ticket_count) {
+                return &threads[i];
+            }
+        }
     }
-    else if ((ran >= 89 && ran <= 97 ) && threads[index + 4].state == 1) {
-      index+=4;
-     break;
-    }
-    else if ((ran >= 98 && ran <= 99 ) && threads[index + 5].state == 1) {
-      index+=5;
-     break;
-    }
-    else if((ran > 99 ) && threads[index + 6].state == 1){
-      index+=6;
-     break;
-    }
-  }
+    
+    // Should never reach here if logic is correct
+    return NULL;
 
   // if(index == -1){
   //   printf("No runnable threads");
   //   return NULL;
   // }
-  return &threads[index];
+ // return &threads[index];
 }
 
 Thread *schedule_wfq(Thread * threads) {
