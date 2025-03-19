@@ -70,10 +70,10 @@ Thread *schedule_lottery(Thread * threads) {
     }
   }
 
-  // if(index == -1){
-  //   printf("No runnable threads");
-  //   return NULL;
-  // }
+  if(index == -1){
+    printf("No runnable threads");
+    return NULL;
+  }
   return &threads[index];
 }
 
