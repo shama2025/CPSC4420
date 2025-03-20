@@ -80,31 +80,64 @@ Thread *schedule_wfq(Thread * threads) {
    * 
    * Should return `NULL` if there is no eligible thread to run
    */
-
-
-  int weight_sum = 100; // Total sum of weights
+  int weight_sum = 0; // Calculate actual sum of weights
   int accumulated_runtime_sum = 0; // Accumulated sum of threads run
-  double link_rate = 0.0; // Expected proportion given the current thread
-  double proportion = 0.0; // Proportion used to check if link_rate is correct, if behind then run
-  int index = -1; // Index of thread
-
-  // Will need to get the number of ticks by getting a running sum using the threads.accumulated runtime
-    for(int i = 0; i< 6; i++){
-    accumulated_runtime_sum+=threads[i].accumulated_runtime;
-  }
-  // Create a proportion between 1/thread weight to get ratio and how often a thread should run
-  for(int i = 0; i< 6; i++){
-    link_rate = 1/weight_sum;
-    proportion = threads[i].accumulated_runtime / accumulated_runtime_sum;
-    if(threads[i].state == 1 && link_rate != proportion){
-        index = i;
-        break;
+  double link_rate = 0.0; // Will represent the target service rate based on weight
+  double proportion = 0.0; // Actual proportion of service received
+  int index = -1; // Index of thread to run
+  
+  // Count eligible threads and calculate total weight
+  int eligible_count = 0;
+  for (int i = 0; i < 6; i++) {
+    if (threads[i].state == 1) { // Only consider ready threads
+      eligible_count++;
+      weight_sum += threads[i].weight;
     }
   }
-  // Need to consider the least run thread 
-  if(index == -1){
+  
+  // If no eligible threads, return NULL
+  if (eligible_count == 0) {
     return NULL;
   }
+  
+  // Calculate total accumulated runtime
+  for (int i = 0; i < 6; i++) {
+    accumulated_runtime_sum += threads[i].accumulated_runtime;
+  }
+  
+  // Find thread that has received least service relative to its weight
+  double min_service_deficit = -1.0;
+  
+  for (int i = 0; i < 6; i++) {
+    if (threads[i].state == 1) {
+      // Safely calculate the target and actual proportions
+      if (weight_sum > 0) {
+        link_rate = (double)threads[i].weight / weight_sum;
+      } else {
+        link_rate = 0.0;
+      }
+      
+      if (accumulated_runtime_sum > 0) {
+        proportion = (double)threads[i].accumulated_runtime / accumulated_runtime_sum;
+      } else {
+        proportion = 0.0;
+      }
+      
+      // Calculate how much less service this thread has received than it should
+      double service_deficit = link_rate - proportion;
+      
+      // Choose thread with greatest service deficit (or any eligible thread if first one)
+      if (index == -1 || service_deficit > min_service_deficit) {
+        min_service_deficit = service_deficit;
+        index = i;
+      }
+    }
+  }
+  
+  if (index == -1) {
+    return NULL; // Shouldn't reach here if eligible_count > 0, but for safety
+  }
+  
   return &threads[index];
 }
 
