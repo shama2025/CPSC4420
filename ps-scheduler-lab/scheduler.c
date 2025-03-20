@@ -29,14 +29,14 @@ Thread threads[NUM_THREADS] = {
 Thread *schedule_lottery(Thread * threads) {
 
 
-  int index = -1;
-   int total_tickets = 0;
+  int index = -1; // Index of thread
+   int total_tickets = 0; // Number of tickets 
     int thread_count = 6;  // Assuming you know the count - ideally this would be passed as a parameter
     
     // Count total tickets from all runnable threads
     for (int i = 0; i < thread_count; i++) {
-        if (threads[i].state == 1) {  // Assuming state 1 means runnable
-            total_tickets += threads[i].weight;  // Assuming there's a weight field
+        if (threads[i].state == 1) {
+            total_tickets += threads[i].weight;
         }
     }
     
@@ -59,11 +59,8 @@ Thread *schedule_lottery(Thread * threads) {
         }
     }
     
-    // Should never reach here if logic is correct
-    return NULL;
-
+  // Extra check
   if(index == -1){
-    printf("No runnable threads");
     return NULL;
   }
   return &threads[index];
@@ -71,32 +68,26 @@ Thread *schedule_lottery(Thread * threads) {
 }
 
 Thread *schedule_wfq(Thread * threads) {
-  /*
-   * Implements a weighted fair queueing scheduler
-   *
-   * Considers thread weights to determine which thread to run
-   * 
-   * Returns a pointer to the thread to run next
-   * 
-   * Should return `NULL` if there is no eligible thread to run
-   */
   int weight_sum = 0; // Calculate actual sum of weights
   int accumulated_runtime_sum = 0; // Accumulated sum of threads run
   double link_rate = 0.0; // Will represent the target service rate based on weight
   double proportion = 0.0; // Actual proportion of service received
   int index = -1; // Index of thread to run
-  
+  int run_sum_eligible = 0; // Running sum for available threads
+  double service_deficit = 0.0; // Used to calculate difference of least payed attention to thread
+  double min_service_deficit = -1.0; // Used to check least serviced thread
+
+
   // Count eligible threads and calculate total weight
-  int eligible_count = 0;
   for (int i = 0; i < 6; i++) {
-    if (threads[i].state == 1) { // Only consider ready threads
-      eligible_count++;
+    if (threads[i].state == 1) {
+      run_sum_eligible++;
       weight_sum += threads[i].weight;
     }
   }
   
   // If no eligible threads, return NULL
-  if (eligible_count == 0) {
+  if (run_sum_eligible == 0) {
     return NULL;
   }
   
@@ -105,12 +96,10 @@ Thread *schedule_wfq(Thread * threads) {
     accumulated_runtime_sum += threads[i].accumulated_runtime;
   }
   
-  // Find thread that has received least service relative to its weight
-  double min_service_deficit = -1.0;
-  
+  // Iterate through thread struct
   for (int i = 0; i < 6; i++) {
     if (threads[i].state == 1) {
-      // Safely calculate the target and actual proportions
+
       if (weight_sum > 0) {
         link_rate = (double)threads[i].weight / weight_sum;
       } else {
@@ -122,11 +111,10 @@ Thread *schedule_wfq(Thread * threads) {
       } else {
         proportion = 0.0;
       }
+        
+      service_deficit = link_rate - proportion;
       
-      // Calculate how much less service this thread has received than it should
-      double service_deficit = link_rate - proportion;
-      
-      // Choose thread with greatest service deficit (or any eligible thread if first one)
+      // Thread serviced least is picked
       if (index == -1 || service_deficit > min_service_deficit) {
         min_service_deficit = service_deficit;
         index = i;
@@ -134,8 +122,9 @@ Thread *schedule_wfq(Thread * threads) {
     }
   }
   
+  // Here as extra check 
   if (index == -1) {
-    return NULL; // Shouldn't reach here if eligible_count > 0, but for safety
+    return NULL; 
   }
   
   return &threads[index];
