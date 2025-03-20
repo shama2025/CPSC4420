@@ -44,14 +44,15 @@ Thread threads[NUM_THREADS] = {
  * @return Pointer to the next thread to run, or NULL if no threads are runnable
  */
 Thread *schedule_lottery(Thread * threads) {
-  int total_tickets = 0;  // Total number of lottery tickets (sum of weights)
+  int eligible_weight_sum = 0;  // Total number of lottery tickets (sum of weights)
   int thread_count = 6;   // Total number of threads in the system
   int index = -1;         // Index of selected thread (for backup check)
-    
+  int weight_run_sum = 0; // Running sum of eligible thread weights
+  int ran = 0;            // Random value between a range of 0 - eligible weight sum
   // Step 1: Count total tickets from all runnable threads
   for (int i = 0; i < thread_count; i++) {
     if (threads[i].state == RUNNABLE) {
-      total_tickets += threads[i].weight;
+      eligible_weight_sum += threads[i].weight;
     }
   }
     
@@ -61,15 +62,14 @@ Thread *schedule_lottery(Thread * threads) {
   }
     
   // Step 2: Select a random ticket
-  int winning_ticket = rand() % total_tickets;
+  int ran = rand() % total_tickets;
     
   // Step 3: Find the thread that holds the winning ticket
   // We simulate distributing tickets by accumulating weights
-  int ticket_count = 0;
   for (int i = 0; i < thread_count; i++) {
     if (threads[i].state == RUNNABLE) {
-      ticket_count += threads[i].weight;
-      if (winning_ticket < ticket_count) {
+      weight_run_sum += threads[i].weight;
+      if (ran < weight_run_sum) {
         return &threads[i];  // This thread holds the winning ticket
       }
     }
