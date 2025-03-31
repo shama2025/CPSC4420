@@ -64,13 +64,17 @@ void kernel_start(const char* command) {
          it.va() < MEMSIZE_PHYSICAL; // if the address is less then physical memory Size
          it += PAGESIZE) {
 
+                    // In case there are no mappings
+        if(it.va() == 0){
+            it.map(it.va(), 0);
+        }
         // If the virtaul address is in the range of the process memory
         if(it.va() >= PROC_START_ADDR){
             it.map(it.va(), PTE_P | PTE_W | PTE_U);
         }
         // If the virtual address is in the range of the kernel memory 
         // to start of process memory
-        if(it.va() >= KERNEL_START_ADDR && it.va() < PROC_START_ADDR){
+        if(it.va() < PROC_START_ADDR){
             // Extra check to make sure CGA is accessbile to user
             if(it.va() == CONSOLE_ADDR){
                 it.map(it.va(), PTE_P | PTE_W | PTE_U);
@@ -78,10 +82,7 @@ void kernel_start(const char* command) {
                 it.map(it.va(), PTE_P | PTE_W);
             }
         }
-        // In case there are no mappings
-        if(it.va() == 0){
-            it.map(it.va(), 0);
-        }
+
     }
 
     /**
