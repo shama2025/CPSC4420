@@ -60,16 +60,31 @@ void kernel_start(const char* command) {
     console_clear();
 
     // (re-)initialize kernel page table
-    for (vmiter it(kernel_pagetable);
-         it.va() < MEMSIZE_PHYSICAL;
-         it += PAGESIZE) {
+    for (vmiter it(kernel_pagetable); // Declare the virtual memory iterator
+         it.va() < MEMSIZE_PHYSICAL; // if the address is less then physical memory Size
+         it += PAGESIZE) { // Incremenet given the size of the page
         if (it.va() != 0) {
-            it.map(it.va(), PTE_P | PTE_W | PTE_U);
+            if(it.va() == CONSOLE_ADDR){
+                it.map(it.va(), PTE_U);
+            }
+            it.map(it.va(), PTE_P | PTE_W); // Map the virtual address and set permissions
         } else {
             // nullptr is inaccessible even to the kernel
             it.map(it.va(), 0);
         }
     }
+
+    /**
+     * Would having a specific check for the CGA and set permissions for that
+     * be a solution?
+     * Need to figure out how memory is accessbile to applications
+     * 
+     * Set range fo 0x0 - 0x0C00 to be kernel
+     * Set range 0x10 - 0x2c0 to be process 
+     * 
+     * Make console address user abled
+     */
+
 
     // set up process descriptors
     for (pid_t i = 0; i < NPROC; i++) {
