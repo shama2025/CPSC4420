@@ -52,40 +52,38 @@ void kernel_start(const char* command) {
     // initialize hardware
     init_hardware();
     log_printf("Starting WeensyOS\n");
-
     ticks = 1;
     init_timer(HZ);
-
+    
     // clear screen
     console_clear();
-
+    
     // (re-)initialize kernel page table
-    for (vmiter it(kernel_pagetable); // Declare the virtual memory iterator
-         it.va() < MEMSIZE_PHYSICAL; // if the address is less then physical memory Size
+    for (vmiter it(kernel_pagetable);      // Declare the virtual memory iterator
+         it.va() < MEMSIZE_PHYSICAL;       // if the address is less then physical memory Size
          it += PAGESIZE) {
-
         // In case there are no mappings
-        if(it.va() == 0){
+        if (it.va() == 0) {
             it.map(it.va(), 0);
         }
-
+        
         // If the virtaul address is in the range of the process memory
-        if(it.va() >= PROC_START_ADDR){
+        if (it.va() >= PROC_START_ADDR) {
             it.map(it.va(), PTE_P | PTE_W | PTE_U);
         }
-
+        
         // If the virtual address is in the range of the kernel memory 
         // to start of process memory
-        if(it.va() < PROC_START_ADDR){
+        if (it.va() < PROC_START_ADDR) {
             // Extra check to make sure CGA is accessbile to user
-            if(it.va() == CONSOLE_ADDR){
+            if (it.va() == CONSOLE_ADDR) {
                 it.map(it.va(), PTE_P | PTE_W | PTE_U);
-            }else{
+            } else {
                 it.map(it.va(), PTE_P | PTE_W);
             }
-
         }
     }
+}
 
     /**
      * Would having a specific check for the CGA and set permissions for that
