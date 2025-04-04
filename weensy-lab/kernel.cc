@@ -172,10 +172,16 @@ void kfree(void* kptr) {
 void process_setup(pid_t pid, const char* program_name) {
     init_process(&ptable[pid], 0);
 
-    // initialize process page table
-    ptable[pid].pagetable = kernel_pagetable;
 
-    // obtain reference to the program image
+    // initialize empty process page table
+    ptable[pid].pagetable = kalloc_pagetable();
+
+    // Iterate over the kernel pagetable
+    for(vmiter it(kernel_pagetable); it.va() < PROC_START_ADDR; it +=PAGESIZE){
+        vmiter(ptable[pid].pagetable,it.va()).map(it.va(),it.perm());
+    }
+
+   // obtain reference to the program image
     program_image pgm(program_name);
 
     // allocate and map global memory required by loadable segments
@@ -183,11 +189,18 @@ void process_setup(pid_t pid, const char* program_name) {
         for (uintptr_t a = round_down(seg.va(), PAGESIZE);
              a < seg.va() + seg.size();
              a += PAGESIZE) {
+
+        
             // `a` is the process virtual address for the next code or data page
             // (The handout code requires that the corresponding physical
             // address is currently free.)
+
             assert(physpages[a / PAGESIZE].refcount == 0);
             ++physpages[a / PAGESIZE].refcount;
+
+            // Mape the virtual address a to the pagetable 
+            // Give address a all permissions
+            vmiter(ptable[pid].pagetable,a).map(a,PTE_P | PTE_W | PTE_U);
         }
     }
 
@@ -209,6 +222,9 @@ void process_setup(pid_t pid, const char* program_name) {
     ++physpages[stack_addr / PAGESIZE].refcount;
     ptable[pid].regs.reg_rsp = stack_addr + PAGESIZE;
 
+    // Map the stack address to the pagetable
+    vmiter(ptable[pid].pagetable,stack_addr).map(stack_addr,PTE_P | PTE_W | PTE_U);
+    
     // mark process as runnable
     ptable[pid].state = P_RUNNABLE;
 }
@@ -352,6 +368,7 @@ int syscall_page_alloc(uintptr_t addr) {
     assert(physpages[addr / PAGESIZE].refcount == 0);
     ++physpages[addr / PAGESIZE].refcount;
     memset((void*) addr, 0, PAGESIZE);
+    vmiter(current,addr).map(addr,PTE_P | PTE_W | PTE_U);
     return 0;
 }
 
