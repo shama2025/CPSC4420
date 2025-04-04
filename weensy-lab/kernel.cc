@@ -64,7 +64,7 @@ void kernel_start(const char* command) {
          it.va() < MEMSIZE_PHYSICAL; // if the address is less then physical memory Size
          it += PAGESIZE) {
 
-                    // In case there are no mappings
+        // In case there are no mappings
         if(it.va() == 0){
             it.map(it.va(), 0);
         }
