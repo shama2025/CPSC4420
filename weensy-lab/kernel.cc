@@ -171,7 +171,7 @@ void kfree(void* kptr) {
 //    %rip and %rsp, gives it a stack page, and marks it as runnable.
 
 void process_setup(pid_t pid, const char* program_name) {
-   // Queue paQueue;
+    // Queue paQueue;
     init_process(&ptable[pid], 0);
 
     // initialize empty process page table
@@ -182,7 +182,9 @@ void process_setup(pid_t pid, const char* program_name) {
         vmiter(ptable[pid].pagetable,it.va()).map(it.va(),it.perm());
     }
 
-   // obtain reference to the program image
+    // obtain reference to the program image
+
+    // Point the mmu to the set page table
     set_pagetable(ptable[pid].pagetable);
 
     program_image pgm(program_name);
@@ -204,8 +206,10 @@ void process_setup(pid_t pid, const char* program_name) {
             
             // Mape the virtual address a to the pagetable 
             // Give address a all permissions
+            
+            
+            // Get a physical address from kalloc and map the va to the pa
             void *pa = kalloc(PAGESIZE);
-
             assert(pa != nullptr);
             vmiter(ptable[pid].pagetable,a).map(pa,PTE_P | PTE_W | PTE_U);
         
@@ -223,15 +227,19 @@ void process_setup(pid_t pid, const char* program_name) {
 
     // allocate and map stack segment
     // Compute process virtual address for stack page
-    uintptr_t stack_addr = PROC_START_ADDR + PROC_SIZE * pid - PAGESIZE;
+
+    // Stack address starts at Memsize virtual
+    // Gets subtracted to fit on gui
+    uintptr_t stack_addr = MEMSIZE_VIRTUAL - PAGESIZE;
+
     // The handout code requires that the corresponding physical address
     // is currently free.
     //assert(physpages[stack_addr / PAGESIZE].refcount == 0);
 
     ptable[pid].regs.reg_rsp = stack_addr + PAGESIZE;
 
+    // Get a physical address from kalloc and map the stack address to the pa
     void *pa = kalloc(PAGESIZE);
-
     assert(pa != nullptr);
     vmiter(ptable[pid].pagetable,stack_addr).map(pa,PTE_P | PTE_W | PTE_U);
 
@@ -376,8 +384,13 @@ uintptr_t syscall(regstate* regs) {
 
 int syscall_page_alloc(uintptr_t addr) {
     void *pa = kalloc(PAGESIZE);
-    assert(pa != nullptr);
 
+    // If kalloc fails throw a 0 instead of killing process
+    if(pa == 0){
+       // log_printf("Physical address was 0\n");
+       return -1;
+    }
+   // memset((void *) addr, 0, PAGESIZE);
     memset(pa ,0, PAGESIZE);
 
     vmiter(current,addr).map(pa,PTE_P | PTE_W | PTE_U);
