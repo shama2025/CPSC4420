@@ -176,13 +176,15 @@ void process_setup(pid_t pid, const char* program_name) {
 
     // initialize empty process page table
     ptable[pid].pagetable = kalloc_pagetable();
+
     // Iterate over the kernel pagetable
     for(vmiter it(kernel_pagetable); it.va() < PROC_START_ADDR; it +=PAGESIZE){
         vmiter(ptable[pid].pagetable,it.va()).map(it.va(),it.perm());
     }
 
-
    // obtain reference to the program image
+    set_pagetable(ptable[pid].pagetable);
+
     program_image pgm(program_name);
 
     // allocate and map global memory required by loadable segments
@@ -191,12 +193,12 @@ void process_setup(pid_t pid, const char* program_name) {
              a < seg.va() + seg.size();
              a += PAGESIZE) {
 
-        
+
             // `a` is the process virtual address for the next code or data page
             // (The handout code requires that the corresponding physical
             // address is currently free.)
 
-            assert(physpages[a / PAGESIZE].refcount == 0);
+            //assert(physpages[a / PAGESIZE].refcount == 0);
 
            // ++physpages[a / PAGESIZE].refcount;
             
@@ -204,11 +206,12 @@ void process_setup(pid_t pid, const char* program_name) {
             // Give address a all permissions
             void *pa = kalloc(PAGESIZE);
 
-            if(pa != nullptr){
-                vmiter(ptable[pid].pagetable,a).map(pa,PTE_P | PTE_W | PTE_U);
-            }
+            assert(pa != nullptr);
+            vmiter(ptable[pid].pagetable,a).map(pa,PTE_P | PTE_W | PTE_U);
         
         }
+    }
+
     // initialize data in loadable segments
     for (auto seg = pgm.begin(); seg != pgm.end(); ++seg) {
         memset((void*) seg.va(), 0, seg.size());
@@ -223,20 +226,18 @@ void process_setup(pid_t pid, const char* program_name) {
     uintptr_t stack_addr = PROC_START_ADDR + PROC_SIZE * pid - PAGESIZE;
     // The handout code requires that the corresponding physical address
     // is currently free.
-    assert(physpages[stack_addr / PAGESIZE].refcount == 0);
+    //assert(physpages[stack_addr / PAGESIZE].refcount == 0);
 
     ptable[pid].regs.reg_rsp = stack_addr + PAGESIZE;
 
     void *pa = kalloc(PAGESIZE);
 
-    if(pa != nullptr){
-        vmiter(ptable[pid].pagetable,stack_addr).map(pa,PTE_P | PTE_W | PTE_U);
-    }    
-    set_pagetable(ptable[pid].pagetable);
+    assert(pa != nullptr);
+    vmiter(ptable[pid].pagetable,stack_addr).map(pa,PTE_P | PTE_W | PTE_U);
+
     // mark process as runnable
     ptable[pid].state = P_RUNNABLE;
 
-}
 }
 
 
@@ -375,14 +376,12 @@ uintptr_t syscall(regstate* regs) {
 
 int syscall_page_alloc(uintptr_t addr) {
     void *pa = kalloc(PAGESIZE);
-   memset((void *) addr ,0, PAGESIZE);
-    log_printf("Current state of Physical Memory: %d\n", physpages[addr / PAGESIZE].refcount);
+    assert(pa != nullptr);
 
-    assert(physpages[addr / PAGESIZE].refcount == 0);
+    memset(pa ,0, PAGESIZE);
 
-    if(pa != 0){
-        vmiter(current,addr).map(pa,PTE_P | PTE_W | PTE_U);
-    }
+    vmiter(current,addr).map(pa,PTE_P | PTE_W | PTE_U);
+    
     return 0;
 }
 
