@@ -1,6 +1,7 @@
 #include "kernel.hh"
 #include "k-apic.hh"
 #include "k-vmiter.hh"
+#include "Queue.hh"
 #include <atomic>
 
 // kernel.cc
@@ -170,6 +171,7 @@ void kfree(void* kptr) {
 //    %rip and %rsp, gives it a stack page, and marks it as runnable.
 
 void process_setup(pid_t pid, const char* program_name) {
+    Queue paQueue;
     init_process(&ptable[pid], 0);
 
 
@@ -183,6 +185,7 @@ void process_setup(pid_t pid, const char* program_name) {
 
    // obtain reference to the program image
     program_image pgm(program_name);
+    set_pagetable(ptable[pid].pagetable);
 
     // allocate and map global memory required by loadable segments
     for (auto seg = pgm.begin(); seg != pgm.end(); ++seg) {
@@ -196,11 +199,26 @@ void process_setup(pid_t pid, const char* program_name) {
             // address is currently free.)
 
             assert(physpages[a / PAGESIZE].refcount == 0);
-            ++physpages[a / PAGESIZE].refcount;
 
             // Mape the virtual address a to the pagetable 
             // Give address a all permissions
-            vmiter(ptable[pid].pagetable,a).map(a,PTE_P | PTE_W | PTE_U);
+            void *pa = kalloc(PAGESIZE);
+            if(pa != 0){
+                vmiter(ptable[pid].pagetable,a).map(pa,PTE_P | PTE_W | PTE_U);
+                paQueue.enqueue(pa);
+            }else{
+                void *old_pa = paQueue.dequeue();
+                    if(old_pa != nullptr){
+                        physpages[a/PAGESIZE].refcount = 0;
+                        
+                        pa = kalloc(PAGESIZE);
+
+                        if(pa != 0){
+                            vmiter(ptable[pid].pagetable,a).map(pa,PTE_P | PTE_W | PTE_U);
+                            paQueue.enqueue(pa);
+                        }
+                    }
+            }
         }
     }
 
@@ -219,11 +237,16 @@ void process_setup(pid_t pid, const char* program_name) {
     // The handout code requires that the corresponding physical address
     // is currently free.
     assert(physpages[stack_addr / PAGESIZE].refcount == 0);
-    ++physpages[stack_addr / PAGESIZE].refcount;
+
     ptable[pid].regs.reg_rsp = stack_addr + PAGESIZE;
 
     // Map the stack address to the pagetable
-    vmiter(ptable[pid].pagetable,stack_addr).map(stack_addr,PTE_P | PTE_W | PTE_U);
+    void *pa = kalloc(PAGESIZE);
+    memset(pa, 0, PAGESIZE);
+    if(pa != 0){
+        vmiter(ptable[pid].pagetable,stack_addr).map(pa,PTE_P | PTE_W | PTE_U);
+
+    }
     
     // mark process as runnable
     ptable[pid].state = P_RUNNABLE;
@@ -365,10 +388,17 @@ uintptr_t syscall(regstate* regs) {
 //    in `u-lib.hh` (but in the handout code, it does not).
 
 int syscall_page_alloc(uintptr_t addr) {
+    void *pa = kalloc(PAGESIZE);
+    //memset((void *) addr ,0, PAGESIZE);
+    if(!pa){
+        return -1;
+    }
+    log_printf("Current state of Physical Memory: %d\n", physpages[addr / PAGESIZE].refcount);
+
     assert(physpages[addr / PAGESIZE].refcount == 0);
-    ++physpages[addr / PAGESIZE].refcount;
-    memset((void*) addr, 0, PAGESIZE);
-    vmiter(current,addr).map(addr,PTE_P | PTE_W | PTE_U);
+    if(pa != 0){
+        vmiter(current,addr).map(pa,PTE_P | PTE_W | PTE_U);
+    }
     return 0;
 }
 

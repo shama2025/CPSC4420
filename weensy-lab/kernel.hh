@@ -69,7 +69,7 @@ struct physpageinfo {
     bool used() const {
         return this->refcount != 0;
     }
-};
+};  
 extern physpageinfo physpages[NPAGES];
 
 
