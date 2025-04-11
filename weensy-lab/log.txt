@@ -1,4 +1,5 @@
 Starting WeensyOS
-PANIC: Unexpected exception 3!
-  #1  0x41620  <_Z7syscallP8regstate>
+PANIC: Kernel page fault on 0x140000 (write missing page)!
+  #1  0x41640  <_Z9exceptionP8regstate>
   #2  0x40a9f  <_Z16exception_returnP4proc>
+  #3  0x41259  <_Z12kernel_startPKc>
