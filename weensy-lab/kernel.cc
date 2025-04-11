@@ -171,7 +171,7 @@ void kfree(void* kptr) {
 
 void process_setup(pid_t pid, const char* program_name) {
     init_process(&ptable[pid], 0);
-
+    void *pa = kalloc(PAGESIZE);
 
     // initialize empty process page table
     ptable[pid].pagetable = kalloc_pagetable();
@@ -181,8 +181,10 @@ void process_setup(pid_t pid, const char* program_name) {
         vmiter(ptable[pid].pagetable,it.va()).map(it.va(),it.perm());
     }
 
+    set_pagetable(ptable[pid].pagetable);
    // obtain reference to the program image
     program_image pgm(program_name);
+  
 
     // allocate and map global memory required by loadable segments
     for (auto seg = pgm.begin(); seg != pgm.end(); ++seg) {
@@ -196,11 +198,13 @@ void process_setup(pid_t pid, const char* program_name) {
             // address is currently free.)
 
             assert(physpages[a / PAGESIZE].refcount == 0);
-            ++physpages[a / PAGESIZE].refcount;
-
+           // ++physpages[a / PAGESIZE].refcount;
+            
             // Mape the virtual address a to the pagetable 
             // Give address a all permissions
-            vmiter(ptable[pid].pagetable,a).map(a,PTE_P | PTE_W | PTE_U);
+            if(pa != nullptr){
+                vmiter(ptable[pid].pagetable,a).map(pa,PTE_P | PTE_W | PTE_U);
+            }
         }
     }
 
@@ -219,14 +223,18 @@ void process_setup(pid_t pid, const char* program_name) {
     // The handout code requires that the corresponding physical address
     // is currently free.
     assert(physpages[stack_addr / PAGESIZE].refcount == 0);
-    ++physpages[stack_addr / PAGESIZE].refcount;
+   // ++physpages[stack_addr / PAGESIZE].refcount;
+
     ptable[pid].regs.reg_rsp = stack_addr + PAGESIZE;
 
+    pa = kalloc(PAGESIZE);
     // Map the stack address to the pagetable
-    vmiter(ptable[pid].pagetable,stack_addr).map(stack_addr,PTE_P | PTE_W | PTE_U);
-    
+    if(pa != nullptr){
+        vmiter(ptable[pid].pagetable,stack_addr).map(pa,PTE_P | PTE_W | PTE_U);
+    }    
     // mark process as runnable
     ptable[pid].state = P_RUNNABLE;
+
 }
 
 
@@ -366,9 +374,12 @@ uintptr_t syscall(regstate* regs) {
 
 int syscall_page_alloc(uintptr_t addr) {
     assert(physpages[addr / PAGESIZE].refcount == 0);
-    ++physpages[addr / PAGESIZE].refcount;
+   // ++physpages[addr / PAGESIZE].refcount;
     memset((void*) addr, 0, PAGESIZE);
-    vmiter(current,addr).map(addr,PTE_P | PTE_W | PTE_U);
+    void *pa = kalloc(PAGESIZE);
+    if(pa != nullptr){
+        vmiter(current,addr).map(pa,PTE_P | PTE_W | PTE_U);
+    }
     return 0;
 }
 

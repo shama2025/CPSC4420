@@ -1,1 +1,4 @@
 Starting WeensyOS
+PANIC: Unexpected exception 3!
+  #1  0x41620  <_Z7syscallP8regstate>
+  #2  0x40a9f  <_Z16exception_returnP4proc>
