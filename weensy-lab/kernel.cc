@@ -376,8 +376,9 @@ int fork(){
     return pid;
 }
 
+
 // syscall(regs)
-//    System call handle>r.
+//    System call handler.
 //
 //    The register values from system call time are stored in `regs`.
 //    The return value, if any, is returned to the user process in `%rax`.
@@ -419,9 +420,6 @@ uintptr_t syscall(regstate* regs) {
 
     case SYSCALL_PAGE_ALLOC:
         return syscall_page_alloc(current->regs.reg_rdi);
-
-    case SYSCALL_FORK:
-        return fork();
 
     default:
         panic("Unexpected system call %ld!\n", regs->reg_rax);

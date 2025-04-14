@@ -1,4 +1,5 @@
 Starting WeensyOS
+<<<<<<< HEAD
 Starting WeensyOS
 Fork was called!
 The first free process id is: 2
@@ -9,3 +10,9 @@ k-hardware.cc:303: kernel assertion 'vmiter(pagetable, (uintptr_t) exception_ent
   #3  0x41787  <_Z8schedulev>
   #4  0x41850  <_Z9exceptionP8regstate>
   #5  0x40a9f  <_Z16exception_returnP4proc>
+=======
+Current stack address: 524136
+Current stack address: 524136
+Current stack address: 524136
+Current stack address: 524136
+>>>>>>> parent of 04a5f3d (Partial Solution step 5)
