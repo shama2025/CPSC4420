@@ -1,18 +1,8 @@
 Starting WeensyOS
-<<<<<<< HEAD
 Starting WeensyOS
 Fork was called!
 The first free process id is: 2
-The pid is: 2
-k-hardware.cc:303: kernel assertion 'vmiter(pagetable, (uintptr_t) exception_entry).pa() == kptr2pa(exception_entry)' failed
-  #1  0x42d80  <_Z15check_pagetableP16x86_64_pagetable>
-  #2  0x41403  <_Z3runP4proc>
-  #3  0x41787  <_Z8schedulev>
-  #4  0x41850  <_Z9exceptionP8regstate>
-  #5  0x40a9f  <_Z16exception_returnP4proc>
-=======
-Current stack address: 524136
-Current stack address: 524136
-Current stack address: 524136
-Current stack address: 524136
->>>>>>> parent of 04a5f3d (Partial Solution step 5)
+The register rax value is: 2
+Fork was called!
+The first free process id is: 3
+The register rax value is: 3
