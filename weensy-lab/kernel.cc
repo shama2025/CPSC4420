@@ -325,57 +325,54 @@ void exception(regstate* regs) {
 
 int fork(){
     log_printf("Fork was called!\n");
-    // Iterate through ptable to find an unused pid
-    // Use a for loop and check the state of the array at that index
 
-    int pid = 0; // The process id 
+    int pid = -1; // The process id 
 
     
     // Gets the first free pid when fork is called
     for (pid_t i = 1; i < NPROC; i++) {
         if(ptable[i].state == P_FREE){
-            ptable[i].pid = i;
-            ptable[i].state = P_RUNNABLE;
+            ptable[i].pid = i; // set the pid of the ptable
+            ptable[i].state = P_RUNNABLE; // Set it to runnable
             pid = i;
             break;
         }
     }
 
+    // If no processes are available
+    if(pid == -1){
+        return -1;
+    }
+
+    ptable[pid].pagetable = kalloc_pagetable(); // Get the new pagetable
+    
     log_printf("The first free process id is: %d\n",pid);
 
     // Copy permissions to table
     for(vmiter it(current->pagetable); it.va() < MEMSIZE_PHYSICAL; it +=PAGESIZE){
         // Check the current addresses permissions 
     //  log_printf("Checking if address doesn't equal CONSOLE_ADDR and has needed permissions\n");
-        
-        if(it.va() == 0 || it.pa() == 0){
-            it.map(it.pa(), 0);
-            it.map(it.va(), 0);
-        }
-
-        if(it.pa() < PROC_START_ADDR){
+    void * pa = kalloc(PAGESIZE);
+    if(it.va() != CONSOLE_ADDR && (it.perm() & PTE_W) == PTE_W){
+        memcpy(pa, (void *) it.pa(), PAGESIZE);
+    }
+        if(it.va() < PROC_START_ADDR){
             // log_printf("Address is less than process start.\n");
-            if(it.pa() != CONSOLE_ADDR && (it.perm() & PTE_W) == PTE_W){
-                // log_printf("Copying current page table to new process pagetable\n");
-                 ptable[pid].pagetable = kalloc_pagetable(); // Get new pagetable
-                 // Copy pagetable data into new process
-                 memcpy(ptable[pid].pagetable,current->pagetable,PAGESIZE); 
-             }
                 // Map permissions to new proccess
-                vmiter(ptable[pid].pagetable,it.va()).map(it.pa(),it.perm());
+                vmiter(ptable[pid].pagetable,it.va()).map(pa,it.perm());
         }
         if(it.va() >= PROC_START_ADDR){
             //log_printf("Address is greater than process start.\n");
             vmiter(ptable[pid].pagetable,it.va()).map(it.va(),PTE_W | PTE_U);
         }
-
     }
+
 
     // Copy the registers for the new process and set rax to 0
     ptable[pid].regs = current->regs;
     ptable[pid].regs.reg_rax = 0;
 
-    log_printf("The register rax value is: %d\n",pid);
+    log_printf("The pid is: %d\n",pid);
     return pid;
 }
 
