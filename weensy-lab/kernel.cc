@@ -325,8 +325,6 @@ void exception(regstate* regs) {
 
 int fork(){
     log_printf("Fork was called!\n");
-    // Iterate through ptable to find an unused pid
-    // Use a for loop and check the state of the array at that index
 
     int pid = -1; // The process id 
 
@@ -346,38 +344,44 @@ int fork(){
         return -1;
     }
 
+   // init_process(&ptable[pid],0); Do we need this?
     log_printf("The first free process id is: %d\n",pid);
 
     // Page table is allocated
     ptable[pid].pagetable = kalloc_pagetable();
 
-    for(vmiter it(current->pagetable); it.va() < PROC_START_ADDR; it +=PAGESIZE){
+    // Handles values less than Process Start Address
+    for(vmiter it(current); it.va() < PROC_START_ADDR; it +=PAGESIZE){
         vmiter(ptable[pid].pagetable,it.va()).map(it.pa(),it.perm());
     }
 
     // Copy permissions to child table
-    for(vmiter it(current->pagetable); it.va() >= PROC_START_ADDR; it +=PAGESIZE){
-
-        if(it.va() != CONSOLE_ADDR && (it.va() & PTE_W) == PTE_W){
+    for(vmiter it(current); it.va() >= PROC_START_ADDR; it +=PAGESIZE){
+        if(it.va() != CONSOLE_ADDR && (it.perm() & PTE_W) == PTE_W){
             // Get a new pagetable from kalloc_pagetable
             x86_64_pagetable *P = kalloc_pagetable();
             // Copy data from parents table into P
             memcpy(P,current,PAGESIZE);
+            // Map P at address it.va() to the child table using parent permissions
             vmiter(ptable[pid].pagetable,it.va()).map(P,it.perm());
-        }
-
-        if(it.va() >= PROC_START_ADDR){
+        }else{
+            // Gets new physical address
             void *pa = kalloc(PAGESIZE);
+            // Copies data from physical address into new pa
             memcpy(pa,(void *) it.pa(), PAGESIZE);
+            // Maps va to new pa for the child page table
             vmiter(ptable[pid].pagetable,it.va()).map(pa,it.perm());
         }
     }
 
     // Copy the registers for the new process and set rax to 0
     ptable[pid].regs = current->regs;
+    // Set rax to 0 for child process pid
     ptable[pid].regs.reg_rax = 0;
 
     log_printf("The register rax value is: %d\n",pid);
+    
+    // Return pid
     return pid;
 }
 
