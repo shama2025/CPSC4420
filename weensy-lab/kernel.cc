@@ -344,7 +344,6 @@ int fork(){
         return -1;
     }
 
-   // init_process(&ptable[pid],0); Do we need this?
     log_printf("The first free process id is: %d\n",pid);
 
     // Page table is allocated
@@ -356,21 +355,17 @@ int fork(){
     }
 
     // Copy permissions to child table
-    for(vmiter it(current); it.va() >= PROC_START_ADDR; it +=PAGESIZE){
-        if(it.va() != CONSOLE_ADDR && (it.perm() & PTE_W) == PTE_W){
+    for(vmiter it(current,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it +=PAGESIZE){
+        if(it.va() != CONSOLE_ADDR && (it.perm() & PTE_W)){
             // Get a new pagetable from kalloc_pagetable
-            x86_64_pagetable *P = kalloc_pagetable();
+            void *P = kalloc(PAGESZIE);
             // Copy data from parents table into P
-            memcpy(P,current,PAGESIZE);
+            memcpy(P,(void *)it.pa(),PAGESIZE);
             // Map P at address it.va() to the child table using parent permissions
             vmiter(ptable[pid].pagetable,it.va()).map(P,it.perm());
         }else{
-            // Gets new physical address
-            void *pa = kalloc(PAGESIZE);
-            // Copies data from physical address into new pa
-            memcpy(pa,(void *) it.pa(), PAGESIZE);
-            // Maps va to new pa for the child page table
-            vmiter(ptable[pid].pagetable,it.va()).map(pa,it.perm());
+            // Maps the physical address to the new child process 
+            vmiter(ptable[pid].pagetable,it.va()).map(it.pa(),it.perm());
         }
     }
 
