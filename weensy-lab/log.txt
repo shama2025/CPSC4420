@@ -2,10 +2,9 @@ Starting WeensyOS
 Starting WeensyOS
 Fork was called!
 The first free process id is: 2
-The register rax value is: 2
-Fork was called!
-The first free process id is: 3
-The register rax value is: 3
-Fork was called!
-The first free process id is: 4
-The register rax value is: 4
+k-hardware.cc:303: kernel assertion 'vmiter(pagetable, (uintptr_t) exception_entry).pa() == kptr2pa(exception_entry)' failed
+  #1  0x432f4  <_Z15check_pagetableP16x86_64_pagetable>
+  #2  0x4196e  <_Z3runP4proc>
+  #3  0x41cf2  <_Z8schedulev>
+  #4  0x41dbb  <_Z9exceptionP8regstate>
+  #5  0x40a9f  <_Z16exception_returnP4proc>

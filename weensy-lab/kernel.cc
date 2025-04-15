@@ -160,8 +160,21 @@ void* kalloc(size_t sz) {
 //    If `kptr == nullptr` does nothing.
 
 void kfree(void* kptr) {
-    (void) kptr;
-    assert(false /* your code here */);
+    log_printf("kfree is called!\n");
+
+    uintptr_t p = (uintptr_t) kptr;
+    int index = p /PAGESIZE;
+    log_printf("The current physpages: %d\n",physpages[index].refcount);
+
+    // Check if the current page is being used
+   
+    assert(physpages[index].refcount > 0);
+
+    // Zero out memory at that address
+    memset(kptr,0,PAGESIZE);
+
+    // Decrement the refocunt by 1
+    --physpages[index].refcount;
 }
 
 
@@ -211,6 +224,7 @@ void process_setup(pid_t pid, const char* program_name) {
             // Get a physical address from kalloc and map the va to the pa
             void *pa = kalloc(PAGESIZE);
             assert(pa != nullptr);
+            //assert(vmiter(ptable[pid].pagetable,a).try_map(pa,PTE_P | PTE_W | PTE_U));
             vmiter(ptable[pid].pagetable,a).map(pa,PTE_P | PTE_W | PTE_U);
         
         }
@@ -241,6 +255,7 @@ void process_setup(pid_t pid, const char* program_name) {
     // Get a physical address from kalloc and map the stack address to the pa
     void *pa = kalloc(PAGESIZE);
     assert(pa != nullptr);
+   // assert(vmiter(ptable[pid].pagetable,stack_addr).try_map(pa,PTE_P | PTE_W | PTE_U));
     vmiter(ptable[pid].pagetable,stack_addr).map(pa,PTE_P | PTE_W | PTE_U);
 
     // mark process as runnable
@@ -347,10 +362,15 @@ int fork(){
     log_printf("The first free process id is: %d\n",pid);
 
     // Page table is allocated
-    ptable[pid].pagetable = kalloc_pagetable();
+    if((ptable[pid].pagetable = kalloc_pagetable())){
+        return -1;
+    }
 
     // Handles values less than Process Start Address
     for(vmiter it(current); it.va() < PROC_START_ADDR; it +=PAGESIZE){
+        if(vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
+            return -1;
+        }
         vmiter(ptable[pid].pagetable,it.va()).map(it.pa(),it.perm());
     }
 
@@ -359,12 +379,23 @@ int fork(){
         if(it.va() != CONSOLE_ADDR && (it.perm() & PTE_W)){
             // Get a new pagetable from kalloc_pagetable
             void *P = kalloc(PAGESIZE);
+            // If Kalloc fails then no more memory
+            if(P == nullptr){
+                return -1;
+            }
             // Copy data from parents table into P
             memcpy(P,(void *)it.pa(),PAGESIZE);
+            // Check if we can map
+            if(vmiter(ptable[pid].pagetable,it.va()).try_map(P,it.perm())){
+                return -1;
+            }
             // Map P at address it.va() to the child table using parent permissions
             vmiter(ptable[pid].pagetable,it.va()).map(P,it.perm());
         }else{
             // Maps the physical address to the new child process 
+            if(vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
+                return -1;
+            }
             vmiter(ptable[pid].pagetable,it.va()).map(it.pa(),it.perm());
         }
     }
@@ -378,6 +409,23 @@ int fork(){
     
     // Return pid
     return pid;
+}
+
+int exit(){
+    // Free memory using vmitter
+    log_printf("Exit is called!\n");
+
+    log_printf("Freeing Process memory!\n");
+    for(vmiter it(current,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it +=PAGESIZE){
+        kfree(it.kptr());
+    }
+    
+    log_printf("Freeing pages!\n");
+    for(ptiter it(current); it.pa() < MEMSIZE_PHYSICAL; it.next()){
+        kfree(it.kptr());
+    }
+
+    return 0;
 }
 
 // syscall(regs)
@@ -427,6 +475,9 @@ uintptr_t syscall(regstate* regs) {
     case SYSCALL_FORK:
         return fork();
 
+    case SYSCALL_EXIT:
+        return exit();
+        
     default:
         panic("Unexpected system call %ld!\n", regs->reg_rax);
 
@@ -445,7 +496,7 @@ int syscall_page_alloc(uintptr_t addr) {
     void *pa = kalloc(PAGESIZE);
 
     // If kalloc fails throw a 0 instead of killing process
-    if(pa == 0){
+    if(pa == nullptr){
        // log_printf("Physical address was 0\n");
        return -1;
     }
