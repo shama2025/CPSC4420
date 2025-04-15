@@ -160,21 +160,26 @@ void* kalloc(size_t sz) {
 //    If `kptr == nullptr` does nothing.
 
 void kfree(void* kptr) {
-    log_printf("kfree is called!\n");
+    if(kptr != nullptr){
+        log_printf("kfree is called!\n");
 
-    uintptr_t p = (uintptr_t) kptr;
-    int index = p /PAGESIZE;
-    log_printf("The current physpages: %d\n",physpages[index].refcount);
-
-    // Check if the current page is being used
-   
-    if(physpages[index].refcount > 0){
-
-    // Zero out memory at that address
-    memset(kptr,0,PAGESIZE);
-
-    // Decrement the refocunt by 1
-    --physpages[index].refcount;
+        uintptr_t p = (uintptr_t) kptr;
+        int index = p /PAGESIZE;
+        log_printf("The current physpages: %d\n",physpages[index].refcount);
+    
+        // Check if the current page is being used
+       
+        if(physpages[index].refcount > 0){
+        
+        // Decrement the refocunt by 1
+        --physpages[index].refcount;
+    
+        // Check if no processes are using the address
+        if(physpages[index].refcount == 0){
+            // Zero out memory at that address
+            memset(kptr,0,PAGESIZE);
+        }
+        }
     }
 }
 
@@ -345,18 +350,19 @@ void tear_down_child(int pid){
         for(vmiter it(ptable[pid].pagetable,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it +=PAGESIZE){
             if(it.pa() != CONSOLE_ADDR){
                 kfree(it.kptr());
-    
             }
         }
         
-        log_printf("Freeing pages!\n");
-        for(ptiter it(ptable[pid].pagetable); it.pa() < MEMSIZE_PHYSICAL; it.next()){
-            if(it.pa() != CONSOLE_ADDR){
-                kfree(it.kptr());
+        // log_printf("Freeing pages!\n");
+        // for(ptiter it(ptable[pid].pagetable); it.pa() < MEMSIZE_PHYSICAL; it.next()){
+        //     if(it.pa() != CONSOLE_ADDR){
+        //         kfree(it.kptr());
     
-            }
-        }
+        //     }
+        // }
         ptable[pid].state = P_FREE;
+        kfree(ptable[pid].pagetable);
+        ptable[pid].pagetable = nullptr;
 }
 
 int fork(){
@@ -390,6 +396,7 @@ int fork(){
     // Handles values less than Process Start Address
     for(vmiter it(current); it.va() < PROC_START_ADDR; it +=PAGESIZE){
         if(!vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
+            log_printf("Line 398\n");
             tear_down_child(pid);
             return -1;
         }
@@ -409,6 +416,7 @@ int fork(){
             // Copy data from parents table into P
             memcpy(P,(void *)it.pa(),PAGESIZE);
             // Check if we can map
+            log_printf("Line 418\n");
             if(!vmiter(ptable[pid].pagetable,it.va()).try_map(P,it.perm())){
                 tear_down_child(pid);
                 return -1;
@@ -417,6 +425,7 @@ int fork(){
             vmiter(ptable[pid].pagetable,it.va()).map(P,it.perm());
         }else{
             // Maps the physical address to the new child process 
+            log_printf("Line 428\n");
             if(!vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
                 tear_down_child(pid);
                 return -1;
@@ -445,14 +454,16 @@ int exit(){
         kfree(it.kptr());
     }
     
-    log_printf("Freeing pages!\n");
-    for(ptiter it(current); it.pa() < MEMSIZE_PHYSICAL; it.next()){
-        if(it.pa() != CONSOLE_ADDR){
-            kfree(it.kptr());
+    // log_printf("Freeing pages!\n");
+    // for(ptiter it(current); it.pa() < MEMSIZE_PHYSICAL; it.next()){
+    //     if(it.pa() != CONSOLE_ADDR){
+    //         kfree(it.kptr());
 
-        }
-    }
+    //     }
+    // }
 
+    kfree(current->pagetable);
+    current->pagetable = nullptr;
     log_printf("Memory has been freed!\n");
     return 0;
 }

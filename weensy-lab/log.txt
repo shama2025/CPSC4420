@@ -2,1053 +2,869 @@ Starting WeensyOS
 Starting WeensyOS
 Fork was called!
 The first free process id is: 2
+Line 398
 Tear down child is called!
 Freeing Process memory!
 kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-kfree is called!
-The current physpages: 0
-Freeing pages!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
 kfree is called!
 The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
 kfree is called!
 The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
 kfree is called!
 The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
 kfree is called!
-The current physpages: 0
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
 kfree is called!
-The current physpages: 0
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
 kfree is called!
-The current physpages: 0
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
 kfree is called!
-The current physpages: 0
-PANIC: Unexpected exception 13!
-  #1  0x4205b  <_Z7syscallP8regstate>
-  #2  0x40a9f  <_Z16exception_returnP4proc>
-  #3  0x4122a  <_Z15tear_down_childi>
-  #4  0x413a0  <_Z4forkv>
-  #5  0x420ef  <_Z7syscallP8regstate>
-  #6  0x40b28  <_Z13syscall_entryv>
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+Line 398
+Tear down child is called!
+Freeing Process memory!
+kfree is called!
+The current physpages: 1
+Fork was called!
+The first free process id is: 2
+k-vmiter.hh:228: vmiter::map failed
+k-vmiter.hh:228: kernel assertion 'r == 0' failed
+  #1  0x414dc  <_Z4forkv>
+  #2  0x42070  <_Z7syscallP8regstate>
+  #3  0x40b28  <_Z13syscall_entryv>
