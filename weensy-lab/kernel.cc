@@ -362,13 +362,13 @@ int fork(){
     log_printf("The first free process id is: %d\n",pid);
 
     // Page table is allocated
-    if((ptable[pid].pagetable = kalloc_pagetable())){
+    if((ptable[pid].pagetable = kalloc_pagetable()) == nullptr){
         return -1;
     }
 
     // Handles values less than Process Start Address
     for(vmiter it(current); it.va() < PROC_START_ADDR; it +=PAGESIZE){
-        if(vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
+        if(!vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
             return -1;
         }
         vmiter(ptable[pid].pagetable,it.va()).map(it.pa(),it.perm());
@@ -386,14 +386,14 @@ int fork(){
             // Copy data from parents table into P
             memcpy(P,(void *)it.pa(),PAGESIZE);
             // Check if we can map
-            if(vmiter(ptable[pid].pagetable,it.va()).try_map(P,it.perm())){
+            if(!vmiter(ptable[pid].pagetable,it.va()).try_map(P,it.perm())){
                 return -1;
             }
             // Map P at address it.va() to the child table using parent permissions
             vmiter(ptable[pid].pagetable,it.va()).map(P,it.perm());
         }else{
             // Maps the physical address to the new child process 
-            if(vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
+            if(!vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
                 return -1;
             }
             vmiter(ptable[pid].pagetable,it.va()).map(it.pa(),it.perm());
@@ -425,6 +425,7 @@ int exit(){
         kfree(it.kptr());
     }
 
+    
     return 0;
 }
 
