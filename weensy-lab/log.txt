@@ -6,3 +6,6 @@ The register rax value is: 2
 Fork was called!
 The first free process id is: 3
 The register rax value is: 3
+Fork was called!
+The first free process id is: 4
+The register rax value is: 4

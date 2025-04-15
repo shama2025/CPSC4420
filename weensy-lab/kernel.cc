@@ -358,7 +358,7 @@ int fork(){
     for(vmiter it(current,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it +=PAGESIZE){
         if(it.va() != CONSOLE_ADDR && (it.perm() & PTE_W)){
             // Get a new pagetable from kalloc_pagetable
-            void *P = kalloc(PAGESZIE);
+            void *P = kalloc(PAGESIZE);
             // Copy data from parents table into P
             memcpy(P,(void *)it.pa(),PAGESIZE);
             // Map P at address it.va() to the child table using parent permissions
