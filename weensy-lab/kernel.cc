@@ -163,12 +163,11 @@ void kfree(void* kptr) {
     if(kptr != nullptr){
         log_printf("kfree is called!\n");
 
-        uintptr_t p = (uintptr_t) kptr;
-        int index = p /PAGESIZE;
-        log_printf("The current physpages: %d\n",physpages[index].refcount);
+        uintptr_t p = (uintptr_t) kptr; // Typecasted pointer to make it of type enum
+        int index = p /PAGESIZE; // Index of physpages array
+        log_printf("The current physpages refcount: %d\n",physpages[index].refcount);
     
-        // Check if the current page is being used
-       
+        // Check if the current address is used
         if(physpages[index].refcount > 0){
         
         // Decrement the refocunt by 1
@@ -344,25 +343,18 @@ void exception(regstate* regs) {
 
 void tear_down_child(int pid){
         // Free memory using vmitter
-        log_printf("Tear down child is called!\n");
+        log_printf("Tear down child process %d\n", pid);
 
-        log_printf("Freeing Process memory!\n");
-        for(vmiter it(ptable[pid].pagetable,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it +=PAGESIZE){
-            if(it.pa() != CONSOLE_ADDR){
+        log_printf("Freeing everything greater than process start addr\n");
+        for(vmiter it(ptable[pid].pagetable,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it += PAGESIZE){
                 kfree(it.kptr());
-            }
         }
-        
-        // log_printf("Freeing pages!\n");
-        // for(ptiter it(ptable[pid].pagetable); it.pa() < MEMSIZE_PHYSICAL; it.next()){
-        //     if(it.pa() != CONSOLE_ADDR){
-        //         kfree(it.kptr());
-    
-        //     }
-        // }
+
         ptable[pid].state = P_FREE;
-        kfree(ptable[pid].pagetable);
+        // x86_64_pagetable *pt = ptable[pid].pagetable;
         ptable[pid].pagetable = nullptr;
+        //  kfree(pt);
+        log_printf("Child Process %d is killed\n");
 }
 
 int fork(){
@@ -390,34 +382,39 @@ int fork(){
 
     // Page table is allocated
     if((ptable[pid].pagetable = kalloc_pagetable()) == nullptr){
+        log_printf("Fork new page allocation failed\n");
+        tear_down_child(pid);
         return -1;
     }
 
     // Handles values less than Process Start Address
     for(vmiter it(current); it.va() < PROC_START_ADDR; it +=PAGESIZE){
-        if(!vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
-            log_printf("Line 398\n");
-            tear_down_child(pid);
-            return -1;
+        if(it.va() != 0){
+            if(vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm()) == -1){
+                log_printf("Address mapping before Prco start Addr failed\n");
+                tear_down_child(pid);
+                return -1;
+            }
+            vmiter(ptable[pid].pagetable,it.va()).map(it.pa(),it.perm());
         }
-        vmiter(ptable[pid].pagetable,it.va()).map(it.pa(),it.perm());
     }
 
     // Copy permissions to child table
     for(vmiter it(current,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it +=PAGESIZE){
         if(it.va() != CONSOLE_ADDR && (it.perm() & PTE_W)){
-            // Get a new pagetable from kalloc_pagetable
+            // Get a new pagetable from kalloc
             void *P = kalloc(PAGESIZE);
             // If Kalloc fails then no more memory
             if(P == nullptr){
+                log_printf("Non-Console address kalloc call failed\n");
                 tear_down_child(pid);
                 return -1;
             }
             // Copy data from parents table into P
             memcpy(P,(void *)it.pa(),PAGESIZE);
             // Check if we can map
-            log_printf("Line 418\n");
-            if(!vmiter(ptable[pid].pagetable,it.va()).try_map(P,it.perm())){
+            if(vmiter(ptable[pid].pagetable,it.va()).try_map(P,it.perm()) == -1){
+                log_printf("Non-Console address mapping failed\n");
                 tear_down_child(pid);
                 return -1;
             }
@@ -425,8 +422,8 @@ int fork(){
             vmiter(ptable[pid].pagetable,it.va()).map(P,it.perm());
         }else{
             // Maps the physical address to the new child process 
-            log_printf("Line 428\n");
-            if(!vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm())){
+            if(vmiter(ptable[pid].pagetable,it.va()).try_map(it.pa(),it.perm()) == -1){
+                log_printf("Console address mapping failed\n");
                 tear_down_child(pid);
                 return -1;
             }
@@ -445,27 +442,30 @@ int fork(){
     return pid;
 }
 
-int exit(){
+void exit(){
     // Free memory using vmitter
     log_printf("Exit is called!\n");
 
     log_printf("Freeing Process memory!\n");
     for(vmiter it(current,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it +=PAGESIZE){
-        kfree(it.kptr());
+        if(it.va() != CONSOLE_ADDR){
+            kfree(it.kptr());
+        }
+    }
+
+    log_printf("Freeing Process Page Memory\n");
+    for(ptiter it(current); it.va() <= MEMSIZE_PHYSICAL; it.next()){
+        if(it.va() !=CONSOLE_ADDR){
+            kfree(it.kptr());
+        }
     }
     
-    // log_printf("Freeing pages!\n");
-    // for(ptiter it(current); it.pa() < MEMSIZE_PHYSICAL; it.next()){
-    //     if(it.pa() != CONSOLE_ADDR){
-    //         kfree(it.kptr());
-
-    //     }
-    // }
-
-    kfree(current->pagetable);
+    current->state = P_FREE;
+    // x86_64_pagetable *pt = current->pagetable;
     current->pagetable = nullptr;
+   //  kfree(pt);
     log_printf("Memory has been freed!\n");
-    return 0;
+    schedule();
 }
 
 // syscall(regs)
@@ -516,7 +516,7 @@ uintptr_t syscall(regstate* regs) {
         return fork();
 
     case SYSCALL_EXIT:
-        return exit();
+        exit();
         
     default:
         panic("Unexpected system call %ld!\n", regs->reg_rax);
@@ -537,13 +537,18 @@ int syscall_page_alloc(uintptr_t addr) {
 
     // If kalloc fails throw a 0 instead of killing process
     if(pa == nullptr){
-       // log_printf("Physical address was 0\n");
-       return -1;
+        log_printf("Syscall Physical address was 0\n");
+        return -1;
     }
    // memset((void *) addr, 0, PAGESIZE);
     memset(pa ,0, PAGESIZE);
 
-    vmiter(current,addr).map(pa,PTE_P | PTE_W | PTE_U);
+    if(vmiter(current->pagetable,addr).try_map(pa,PTE_U |PTE_W |PTE_P) == -1){
+        log_printf("Syscall mapping failed\n");
+        kfree(pa);
+        return -1;
+    }
+    vmiter(current->pagetable,addr).map(pa,PTE_P | PTE_W | PTE_U);
     
     return 0;
 }
