@@ -173,11 +173,11 @@ void kfree(void* kptr) {
         // Decrement the refocunt by 1
         --physpages[index].refcount;
     
-        // Check if no processes are using the address
-        if(physpages[index].refcount == 0){
-            // Zero out memory at that address
-            memset(kptr,0,PAGESIZE);
-        }
+            // Check if no processes are using the address
+            if(physpages[index].refcount == 0){
+                // Zero out memory at that address
+                memset(kptr,0,PAGESIZE);
+            }
         }
     }
 }
@@ -342,6 +342,7 @@ void exception(regstate* regs) {
 }
 
 void tear_down_child(int pid){
+        if(ptable[pid].pagetable != nullptr){
         // Free memory using vmitter
         log_printf("Tear down child process %d\n", pid);
 
@@ -349,12 +350,12 @@ void tear_down_child(int pid){
         for(vmiter it(ptable[pid].pagetable,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it += PAGESIZE){
                 kfree(it.kptr());
         }
-
+        }
         ptable[pid].state = P_FREE;
         // x86_64_pagetable *pt = ptable[pid].pagetable;
         ptable[pid].pagetable = nullptr;
         //  kfree(pt);
-        log_printf("Child Process %d is killed\n");
+        log_printf("Child Process %d is killed\n",pid);
 }
 
 int fork(){
@@ -548,6 +549,7 @@ int syscall_page_alloc(uintptr_t addr) {
         kfree(pa);
         return -1;
     }
+
     vmiter(current->pagetable,addr).map(pa,PTE_P | PTE_W | PTE_U);
     
     return 0;
