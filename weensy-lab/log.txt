@@ -1,5 +1,275 @@
 Starting WeensyOS
-Syscall Physical address was 0
-Syscall Physical address was 0
-Syscall Physical address was 0
-Syscall Physical address was 0
+Starting WeensyOS
+Fork was called!
+The first free process id is: 2
+The register rax value is: 2
+Fork was called!
+The first free process id is: 3
+The register rax value is: 3
+Exit is called!
+Freeing Process memory!
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Freeing Process Page Memory
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Memory has been freed!
+Fork was called!
+The first free process id is: 2
+The register rax value is: 2
+Exit is called!
+Freeing Process memory!
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Freeing Process Page Memory
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Memory has been freed!
+Fork was called!
+The first free process id is: 1
+The register rax value is: 1
+Exit is called!
+Freeing Process memory!
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Freeing Process Page Memory
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Memory has been freed!
+Exit is called!
+Freeing Process memory!
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Freeing Process Page Memory
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Memory has been freed!
+Fork was called!
+The first free process id is: 1
+The register rax value is: 1
+Fork was called!
+The first free process id is: 3
+The register rax value is: 3
+Fork was called!
+The first free process id is: 4
+The register rax value is: 4
+Fork was called!
+The first free process id is: 5
+The register rax value is: 5
+Fork was called!
+The first free process id is: 6
+The register rax value is: 6
+Fork was called!
+The first free process id is: 7
+The register rax value is: 7
+Fork was called!
+The first free process id is: 8
+The register rax value is: 8
+Exit is called!
+Freeing Process memory!
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Freeing Process Page Memory
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Memory has been freed!
+Fork was called!
+The first free process id is: 1
+The register rax value is: 1
+Exit is called!
+Freeing Process memory!
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Freeing Process Page Memory
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Memory has been freed!
+Exit is called!
+Freeing Process memory!
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Freeing Process Page Memory
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Memory has been freed!
+Exit is called!
+Freeing Process memory!
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Freeing Process Page Memory
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+kfree is called!
+The current physpages refcount: 1
+Memory has been freed!
+Fork was called!
+The first free process id is: 2
+The register rax value is: 2
+Fork was called!
+The first free process id is: 6
+The register rax value is: 6
+Fork was called!
+The first free process id is: 8
+The register rax value is: 8
+Starting WeensyOS
+Fork was called!
+The first free process id is: 2
+The register rax value is: 2
+Fork was called!
+The first free process id is: 3
+The register rax value is: 3
+Fork was called!
+The first free process id is: 4
+The register rax value is: 4
