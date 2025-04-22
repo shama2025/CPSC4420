@@ -349,12 +349,10 @@ void tear_down_child(int pid){
         log_printf("Freeing everything greater than process start addr\n");
         for(vmiter it(ptable[pid].pagetable,PROC_START_ADDR); it.va() <= MEMSIZE_VIRTUAL; it += PAGESIZE){
                 kfree(it.kptr());
-        }
+          }
         }
         ptable[pid].state = P_FREE;
-        // x86_64_pagetable *pt = ptable[pid].pagetable;
         ptable[pid].pagetable = nullptr;
-        //  kfree(pt);
         log_printf("Child Process %d is killed\n",pid);
 }
 
@@ -462,9 +460,7 @@ void exit(){
     }
     
     current->state = P_FREE;
-    // x86_64_pagetable *pt = current->pagetable;
     current->pagetable = nullptr;
-   //  kfree(pt);
     log_printf("Memory has been freed!\n");
     schedule();
 }
