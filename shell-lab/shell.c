@@ -74,7 +74,6 @@ void eval_and_print(char *line) {
     } else {
       // TODO: Call the chdir system call passing argument 1 as the path
       int chdir_result = chdir(args[1]);
-      //int chdir_result = -1;
 
       if (chdir_result != 0) {
         write(STDERR_FILENO, "error changing directory\n", 25);
@@ -84,13 +83,11 @@ void eval_and_print(char *line) {
     // Run a child process
     // TODO: Fork the process
     int pid = fork();
-//    int pid = -1;
 
     if (pid == CHILD) {
       // TODO: Call execve to replace the program code for the child
       // `man execve` may be helpful here.
       // We can pass a `NULL` environment
-      //int execve_result = -1;
       int execve_result = execve(line,args,NULL);
       if (execve_result < 0) {
         write(STDERR_FILENO, "exec error\n", 11);
