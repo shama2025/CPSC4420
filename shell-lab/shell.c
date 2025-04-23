@@ -112,7 +112,7 @@ void _start() {
   // Read-eval-print loop
   while (1) {
     // TODO: Use `write` to display a prompt such as "> "
-    write(STDOUT_FILENO,line,1024);
+    write(1,"write your command: ",22);
     read(STDIN_FILENO, line, 1024);
     eval_and_print(line);
   }
